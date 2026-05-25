@@ -1,0 +1,37 @@
+# Environments
+venv/
+env/
+.env
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Data (Ignore data files to prevent large commits, but keep empty folders)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/external/*
+!data/external/.gitkeep
+
+# Models
+models/**/*.pkl
+models/**/*.joblib
+models/**/*.h5
+!models/**/.gitkeep
+
+# Reports
+reports/figures/*
+!reports/figures/.gitkeep
+reports/results/*
+!reports/results/.gitkeep
+
+# OS generated files
+.DS_Store
+Thumbs.db
