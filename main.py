@@ -232,21 +232,21 @@ def get_food_recommendation(healthy_feeling, prediction):
     prediction: 0 (Unhealthy) atau 1 (Healthy)
     """
     if healthy_feeling >= 4:
-        mood_label = "Good Mood 😊"
+        mood_label = "Good Mood"
         mood_desc  = "Kamu sedang merasa baik! Pilihan sehat terasa lebih mudah."
         if prediction == 1:
             foods = ["Grain bowl", "Salad buah segar", "Smoothie bowl", "Overnight oats", "Yogurt granola"]
         else:
             foods = ["Nasi + sayur tumis", "Sup ayam bening", "Gado-gado", "Pecel lele", "Tumis kangkung"]
     elif healthy_feeling == 3:
-        mood_label = "Mood Netral 😐"
+        mood_label = "Mood Netral"
         mood_desc  = "Mood kamu biasa aja nih. Makanan yang nyaman bisa membantu!"
         if prediction == 1:
             foods = ["Nasi + lauk seimbang", "Sandwich isi sayur", "Bubur ayam", "Soto ayam", "Mie kuah"]
         else:
             foods = ["Bubur manado", "Mie rebus + telur", "Nasi tim", "Lontong sayur", "Nasi uduk"]
     else:
-        mood_label = "Lagi Stres 😔"
+        mood_label = "Lagi Stres"
         mood_desc  = "Mood kurang baik. Comfort food sehat bisa bantu memulihkan energi!"
         if prediction == 1:
             foods = ["Dark chocolate", "Pisang + almond butter", "Teh chamomile + roti gandum", "Oatmeal madu", "Alpukat toast"]
@@ -875,7 +875,7 @@ elif page == "Step 4: Demo":
         )
 
     st.markdown("<br>", unsafe_allow_html=True)
-    predict_btn = st.button("🍽️ Analisis Pola Makanku!", use_container_width=True)
+    predict_btn = st.button("Analisis Pola Makanku!", use_container_width=True)
 
     if predict_btn:
         # Hitung composite features
@@ -897,7 +897,6 @@ elif page == "Step 4: Demo":
             'breakfast': breakfast,
             'on_off_campus': on_off_campus,
             'employment': employment,
-            'gender': gender,
             'pay_meal_out': pay_meal_out,
             'fav_cuisine_coded': fav_cuisine_coded,
             'healthy_behavior_score': healthy_behavior_score,
@@ -923,7 +922,6 @@ elif page == "Step 4: Demo":
                 conf_str = f"Confidence: {confidence:.0f}%" if confidence else ""
                 st.markdown(f"""
                 <div class="result-healthy">
-                    <div style="font-size:3rem;">✅</div>
                     <div class="result-label" style="color:#2d9e5f;">Relatively Healthy</div>
                     <div class="result-conf">{conf_str}</div>
                     <div style="font-size:0.85rem;color:#555;margin-top:10px;">
@@ -935,7 +933,6 @@ elif page == "Step 4: Demo":
                 conf_str = f"Confidence: {confidence:.0f}%" if confidence else ""
                 st.markdown(f"""
                 <div class="result-unhealthy">
-                    <div style="font-size:3rem;">⚠️</div>
                     <div class="result-label" style="color:#FF8D28;">Unhealthy Pattern</div>
                     <div class="result-conf">{conf_str}</div>
                     <div style="font-size:0.85rem;color:#555;margin-top:10px;">
@@ -984,7 +981,7 @@ elif page == "Step 4: Demo":
 
             st.markdown("""
             <div class="info-card">
-                <h4>🍽️ Saran Makanan untuk Kamu</h4>
+                <h4>Saran Makanan untuk Kamu</h4>
                 <div style="font-size:0.83rem;color:#777;margin-bottom:10px;">
                     Berdasarkan mood & pola makanmu:
                 </div>
@@ -996,22 +993,22 @@ elif page == "Step 4: Demo":
             # Mini insight personal
             insights = []
             if veggies_day < 3:
-                insights.append("🥦 Konsumsi sayurmu masih kurang dari 3 porsi/hari — ini faktor risiko terbesar.")
+                insights.append("Konsumsi sayurmu masih kurang dari 3 porsi/hari — ini faktor risiko terbesar.")
             if exercise < 2:
-                insights.append("🏃 Olahraga kurang dari 2x/minggu berkorelasi kuat dengan pola makan unhealthy.")
+                insights.append("Olahraga kurang dari 2x/minggu berkorelasi kuat dengan pola makan unhealthy.")
             if eating_out >= 5:
-                insights.append("🍔 Makan di luar ≥5x/minggu meningkatkan risiko asupan kalori berlebih.")
+                insights.append("Makan di luar ≥5x/minggu meningkatkan risiko asupan kalori berlebih.")
             if emotional_eating_risk >= 2:
-                insights.append("😰 Kamu memiliki emotional eating triggers yang tinggi — perhatikan pola makan saat stres.")
+                insights.append("Kamu memiliki emotional eating triggers yang tinggi — perhatikan pola makan saat stres.")
             if cook >= 4:
-                insights.append("👨‍🍳 Kebiasaan masak sendiri yang baik — ini positif untuk kontrol gizi!")
+                insights.append("Kebiasaan masak sendiri yang baik — ini positif untuk kontrol gizi!")
             if healthy_feeling >= 4:
-                insights.append("😊 Mood positif membantu membuat pilihan makan yang lebih baik!")
+                insights.append("Mood positif membantu membuat pilihan makan yang lebih baik!")
 
             if insights:
                 st.markdown("""
                 <div class="info-card" style="border-left:4px solid #3498db;">
-                    <h4>💡 Insight Personal</h4>
+                    <h4>Insight Personal</h4>
                 """, unsafe_allow_html=True)
                 for ins in insights[:3]:
                     st.markdown(f'<div style="font-size:0.83rem;color:#555;margin-bottom:6px;">{ins}</div>', unsafe_allow_html=True)
