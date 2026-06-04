@@ -349,7 +349,7 @@ if page == "Home":
         c1, c2 = st.columns(2)
         with c1:
             st.markdown("""
-            <div class="info-card">
+            <div class="info-card" style="min-height: 148px;">
                 <h4>Food Choices Dataset</h4>
                 <div style="font-size:0.85rem;color:#555;">
                     Sumber: <a href="https://www.kaggle.com/datasets/borapajo/food-choices" target="_blank" style="color:#FF8D28;text-decoration:none;"><b>Kaggle – borapajo</b></a><br>
@@ -360,7 +360,7 @@ if page == "Home":
             """, unsafe_allow_html=True)
         with c2:
             st.markdown("""
-            <div class="info-card">
+            <div class="info-card" style="min-height: 148px;">
                 <h4>Synthetic Data Augmentation</h4>
                 <div style="font-size:0.85rem;color:#555;">
                     Sumber: <a href="https://dl.acm.org/doi/epdf/10.1145/3577190.3614129" target="_blank" style="color:#FF8D28;text-decoration:none;"><b>Paper – Mood-Diet Insight</b></a><br>
