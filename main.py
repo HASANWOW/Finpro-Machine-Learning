@@ -799,73 +799,47 @@ elif page == "Step 4: Demo":
 
     st.markdown("### Ceritakan kebiasaan harianmu")
 
-    # ── INPUT FORM ──
+    # ── INPUT FORM (Tiga Pilar Utama) ──
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.markdown("**Kebiasaan Makan**")
-        veggies_day  = st.slider("Porsi sayur per hari", 0, 7, 2, help="0 = tidak pernah, 7 = sangat sering")
-        fruit_day    = st.slider("Porsi buah per hari", 0, 7, 2)
-        eating_out   = st.slider("Frekuensi makan di luar per minggu", 0, 7, 4)
-        breakfast    = st.slider("Frekuensi sarapan per minggu", 0, 7, 4)
-        calories_day = st.slider("Seberapa peduli kamu soal kalori?", 0, 7, 3, help="0 = tidak peduli, 7 = sangat peduli")
-        cook         = st.slider("Frekuensi masak sendiri per minggu", 0, 7, 2)
-
-    with col2:
-        st.markdown("**Gaya Hidup**")
-        exercise = st.slider("Frekuensi olahraga per minggu", 0, 7, 1)
-        sports   = st.slider("Frekuensi aktivitas sport per minggu", 0, 7, 1)
-        coffee   = st.slider("Konsumsi kopi per hari", 0, 7, 2)
-
-        st.markdown("**Kondisi Emosional**")
+        st.markdown("**Mood (Kondisi Emosional)**")
         healthy_feeling = st.slider(
-            "Seberapa sehat kamu merasa dirimu? (Mood)",
+            "Suasana Hati / Mood Harian",
             1, 5, 3,
             help="1 = sangat tidak sehat/mood buruk, 5 = sangat sehat/mood baik"
         )
         comfort_food_reasons_coded = st.selectbox(
-            "Alasan makan comfort food",
+            "Alasan Utama Memilih Comfort Food",
             options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
             format_func=lambda x: {
                 0: "0 – Tidak ada",
                 1: "1 – Stres",
-                2: "2 – Boredom",
-                3: "3 – Depresi/sad",
+                2: "2 – Kebosanan (Boredom)",
+                3: "3 – Depresi/sedih",
                 4: "4 – Kebiasaan",
-                5: "5 – Nggak tau",
-                6: "6 – Semuanya",
-                7: "7 – Reward diri",
-                8: "8 – Cemas",
+                5: "5 – Tidak tahu",
+                6: "6 – Semua alasan",
+                7: "7 – Hadiah diri (Self-reward)",
+                8: "8 – Cemas (Anxiety)",
                 9: "9 – Lainnya",
             }.get(x, str(x))
         )
         eating_changes_coded = st.selectbox(
-            "Perubahan kebiasaan makan belakangan ini",
+            "Perubahan Kebiasaan Makan Saat Stres",
             options=[0, 1, 2, 3],
             format_func=lambda x: {
                 0: "0 – Tidak berubah",
-                1: "1 – Lebih baik",
-                2: "2 – Lebih buruk",
+                1: "1 – Lebih baik/sehat",
+                2: "2 – Lebih buruk/tidak sehat",
                 3: "3 – Sangat buruk",
             }.get(x, str(x))
         )
 
-    with col3:
-        st.markdown("**Profil Kamu**")
-        gender = st.radio("Gender", options=[0, 1], format_func=lambda x: "Perempuan" if x == 0 else "Laki-laki")
-        on_off_campus = st.radio("Tempat tinggal", options=[0, 1], format_func=lambda x: "Off-campus" if x == 0 else "On-campus")
-        employment = st.selectbox(
-            "Status pekerjaan",
-            options=[0, 1, 2],
-            format_func=lambda x: {0: "Tidak bekerja", 1: "Part-time", 2: "Full-time"}.get(x)
-        )
-        pay_meal_out = st.selectbox(
-            "Budget makan sekali di luar",
-            options=[0, 1, 2],
-            format_func=lambda x: {0: "< Rp 50.000", 1: "Rp 50.000 – 100.000", 2: "> Rp 100.000"}.get(x)
-        )
+    with col2:
+        st.markdown("**Rasa (Preferensi Makanan)**")
         fav_cuisine_coded = st.selectbox(
-            "Masakan favorit",
+            "Masakan Favorit",
             options=list(range(10)),
             format_func=lambda x: {
                 0: "Indonesia", 1: "Japanese", 2: "Korean", 3: "Italian",
@@ -873,6 +847,37 @@ elif page == "Step 4: Demo":
                 8: "Thai", 9: "Lainnya"
             }.get(x, str(x))
         )
+        calories_day = st.slider("Seberapa Peduli Anda Terhadap Kalori?", 0, 7, 3, help="0 = tidak peduli, 7 = sangat peduli")
+
+    with col3:
+        st.markdown("**Waktu & Kebiasaan (Konteks Harian)**")
+        breakfast = st.slider("Frekuensi Sarapan (hari/minggu)", 0, 7, 4)
+        eating_out = st.slider("Frekuensi Makan di Luar (hari/minggu)", 0, 7, 4)
+        cook = st.slider("Frekuensi Masak Sendiri (hari/minggu)", 0, 7, 2)
+
+    # Expander untuk opsi pendukung / profil agar tidak membingungkan
+    with st.expander("Informasi Pendukung & Profil (Opsional)", expanded=False):
+        ec1, ec2, ec3 = st.columns(3)
+        with ec1:
+            veggies_day = st.slider("Porsi sayur per hari", 0, 7, 2, help="0 = tidak pernah, 7 = sangat sering")
+            fruit_day = st.slider("Porsi buah per hari", 0, 7, 2)
+            coffee = st.slider("Konsumsi kopi per hari", 0, 7, 2)
+        with ec2:
+            exercise = st.slider("Frekuensi olahraga per minggu", 0, 7, 1)
+            sports = st.slider("Frekuensi aktivitas sport per minggu", 0, 7, 1)
+            gender = st.radio("Gender", options=[0, 1], format_func=lambda x: "Perempuan" if x == 0 else "Laki-laki")
+        with ec3:
+            on_off_campus = st.radio("Tempat tinggal", options=[0, 1], format_func=lambda x: "Off-campus" if x == 0 else "On-campus")
+            employment = st.selectbox(
+                "Status pekerjaan",
+                options=[0, 1, 2],
+                format_func=lambda x: {0: "Tidak bekerja", 1: "Part-time", 2: "Full-time"}.get(x)
+            )
+            pay_meal_out = st.selectbox(
+                "Budget makan sekali di luar",
+                options=[0, 1, 2],
+                format_func=lambda x: {0: "< Rp 50.000", 1: "Rp 50.000 – 100.000", 2: "> Rp 100.000"}.get(x)
+            )
 
     st.markdown("<br>", unsafe_allow_html=True)
     predict_btn = st.button("Analisis Pola Makanku!", use_container_width=True)
