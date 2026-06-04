@@ -683,13 +683,13 @@ elif page == "Step 3: Model":
         col1, col2, col3 = st.columns(3)
         models = [
             (col1, "Logistic Regression", "Baseline", "#3498db",
-             "0.7200", "0.7000", "72.0%",
+             "0.8693", "0.8800", "86.93%",
              "Model sederhana & interpretable. Digunakan sebagai baseline perbandingan."),
             (col2, "Random Forest", "Model Utama", "#2d9e5f",
-             "0.7600", "0.7400", "76.0%",
+             "0.8238", "0.8800", "82.38%",
              "Menangani hubungan non-linear. Menyediakan feature_importances_ untuk analisis."),
             (col3, "SVM (RBF Kernel)", "Model Final", "#FF8D28",
-             "0.8000", "0.7800", "80.0%",
+             "0.9200", "0.9200", "92.00%",
              "Decision boundary paling presisi. Dipilih sebagai model final yang di-deploy."),
         ]
         for col, name, badge, color, f1, acc, cv, desc in models:
@@ -722,10 +722,10 @@ elif page == "Step 3: Model":
             st.markdown("""
             <table class="eval-table">
                 <tr><th>Metrik</th><th>Healthy (1)</th><th>Unhealthy (0)</th><th>Weighted Avg</th></tr>
-                <tr><td><b>Precision</b></td><td>0.83</td><td>0.77</td><td>0.80</td></tr>
-                <tr><td><b>Recall</b></td><td>0.75</td><td>0.85</td><td>0.80</td></tr>
-                <tr><td><b>F1-Score</b></td><td>0.79</td><td>0.81</td><td>0.80</td></tr>
-                <tr><td><b>Support</b></td><td>12</td><td>13</td><td>25</td></tr>
+                <tr><td><b>Precision</b></td><td>0.95</td><td>0.67</td><td>0.92</td></tr>
+                <tr><td><b>Recall</b></td><td>0.95</td><td>0.67</td><td>0.92</td></tr>
+                <tr><td><b>F1-Score</b></td><td>0.95</td><td>0.67</td><td>0.92</td></tr>
+                <tr><td><b>Support</b></td><td>22</td><td>3</td><td>25</td></tr>
             </table>
             """, unsafe_allow_html=True)
 
