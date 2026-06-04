@@ -683,16 +683,16 @@ elif page == "Step 3: Model":
         col1, col2, col3 = st.columns(3)
         models = [
             (col1, "Logistic Regression", "Baseline", "#3498db",
-             "0.8693", "0.8800", "86.93%",
+             "0.8693", "0.8800",
              "Model sederhana & interpretable. Digunakan sebagai baseline perbandingan."),
             (col2, "Random Forest", "Model Utama", "#2d9e5f",
-             "0.8238", "0.8800", "82.38%",
+             "0.8238", "0.8800",
              "Menangani hubungan non-linear. Menyediakan feature_importances_ untuk analisis."),
             (col3, "SVM (RBF Kernel)", "Model Final", "#FF8D28",
-             "0.9200", "0.9200", "92.00%",
+             "0.9200", "0.9200",
              "Decision boundary paling presisi. Dipilih sebagai model final yang di-deploy."),
         ]
-        for col, name, badge, color, f1, acc, cv, desc in models:
+        for col, name, badge, color, f1, acc, desc in models:
             with col:
                 st.markdown(f"""
                 <div class="info-card" style="border-top:4px solid {color}; text-align:center;">
@@ -709,7 +709,6 @@ elif page == "Step 3: Model":
                             <div style="font-size:0.72rem;color:#888;">Accuracy</div>
                         </div>
                     </div>
-                    <div style="font-size:0.75rem;color:#888;margin-bottom:8px;">CV Score: {cv}</div>
                     <div style="font-size:0.8rem;color:#666;text-align:left;">{desc}</div>
                 </div>
                 """, unsafe_allow_html=True)
