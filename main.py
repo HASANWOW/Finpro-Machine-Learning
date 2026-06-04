@@ -688,7 +688,7 @@ elif page == "Step 3: Model":
             (col2, "Random Forest", "Model Utama", "#2d9e5f",
              "0.7600", "0.7400", "76.0%",
              "Menangani hubungan non-linear. Menyediakan feature_importances_ untuk analisis."),
-            (col3, "SVM (RBF Kernel)", "Model Final ⭐", "#FF8D28",
+            (col3, "SVM (RBF Kernel)", "Model Final", "#FF8D28",
              "0.8000", "0.7800", "80.0%",
              "Decision boundary paling presisi. Dipilih sebagai model final yang di-deploy."),
         ]
