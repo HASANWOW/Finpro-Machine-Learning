@@ -363,6 +363,7 @@ if page == "Home":
             <div class="info-card">
                 <h4>Synthetic Data Augmentation</h4>
                 <div style="font-size:0.85rem;color:#555;">
+                    Sumber: <a href="https://dl.acm.org/doi/epdf/10.1145/3577190.3614129" target="_blank" style="color:#FF8D28;text-decoration:none;"><b>Paper – Mood-Diet Insight</b></a><br>
                     <b style="color:#FF8D28;">200</b> data synthetic (100 healthy + 100 unhealthy)<br>
                     Dibuat berbasis domain knowledge dari literatur<br>
                     Hanya masuk ke <b>training set</b> (bebas leakage)
