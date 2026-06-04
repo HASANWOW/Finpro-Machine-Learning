@@ -958,24 +958,8 @@ elif page == "Step 4: Demo":
             factors_html = ""
             for label, val, max_val, color in factors:
                 pct = val / max_val * 100
-                factors_html += f"""
-                <div style="margin-bottom:10px;">
-                    <div style="display:flex;justify-content:space-between;font-size:0.8rem;
-                                font-weight:700;color:#1d2b22;margin-bottom:4px;">
-                        <span>{label}</span>
-                        <span style="color:{color};">{val}/{max_val}</span>
-                    </div>
-                    <div style="background:#f5ede3;border-radius:999px;height:8px;overflow:hidden;">
-                        <div style="background:{color};width:{pct}%;height:8px;border-radius:999px;"></div>
-                    </div>
-                </div>
-                """
-            st.markdown(f"""
-            <div class="info-card">
-                <h4>Faktor Paling Berpengaruh</h4>
-                {factors_html}
-            </div>
-            """, unsafe_allow_html=True)
+                factors_html += f'<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:0.8rem;font-weight:700;color:#1d2b22;margin-bottom:4px;"><span>{label}</span><span style="color:{color};">{val}/{max_val}</span></div><div style="background:#f5ede3;border-radius:999px;height:8px;overflow:hidden;"><div style="background:{color};width:{pct}%;height:8px;border-radius:999px;"></div></div></div>'
+            st.markdown(f'<div class="info-card"><h4>Faktor Paling Berpengaruh</h4>{factors_html}</div>', unsafe_allow_html=True)
 
         with detail_col:
             # Mood & rekomendasi
@@ -987,15 +971,7 @@ elif page == "Step 4: Demo":
             """, unsafe_allow_html=True)
 
             chips_html = "".join([f'<span class="food-chip">{f}</span>' for f in foods])
-            st.markdown(f"""
-            <div class="info-card">
-                <h4>Saran Makanan untuk Kamu</h4>
-                <div style="font-size:0.83rem;color:#777;margin-bottom:10px;">
-                    Berdasarkan mood & pola makanmu:
-                </div>
-                {chips_html}
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(f'<div class="info-card"><h4>Saran Makanan untuk Kamu</h4><div style="font-size:0.83rem;color:#777;margin-bottom:10px;">Berdasarkan mood & pola makanmu:</div>{chips_html}</div>', unsafe_allow_html=True)
 
             # Mini insight personal
             insights = []
@@ -1014,11 +990,6 @@ elif page == "Step 4: Demo":
 
             if insights:
                 insights_html = "".join([f'<div style="font-size:0.83rem;color:#555;margin-bottom:6px;">{ins}</div>' for ins in insights[:3]])
-                st.markdown(f"""
-                <div class="info-card" style="border-left:4px solid #3498db;">
-                    <h4>Insight Personal</h4>
-                    {insights_html}
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown(f'<div class="info-card" style="border-left:4px solid #3498db;"><h4>Insight Personal</h4>{insights_html}</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="footer">FoodVibe &nbsp;|&nbsp; Step 4: Demo &nbsp;|&nbsp; Kelompok 6 – Binus University</div>', unsafe_allow_html=True)
