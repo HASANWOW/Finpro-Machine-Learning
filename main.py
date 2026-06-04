@@ -317,7 +317,7 @@ def section(title):
 # PAGE: HOME
 # ═══════════════════════════════════════════════════════
 if page == "Home":
-    hero("FoodVibe 🍜",
+    hero("FoodVibe",
          "Classifying Food Choice Behavior in College Students Based on Lifestyle & Emotional Triggers")
 
     col1, col2 = st.columns([3, 2])
@@ -790,7 +790,7 @@ elif page == "Step 3: Model":
 # PAGE: DEMO
 # ═══════════════════════════════════════════════════════
 elif page == "Step 4: Demo":
-    hero("FoodVibe Demo 🍜",
+    hero("FoodVibe Demo",
          "Isi kebiasaan harianmu → Dapatkan klasifikasi pola makan + saran makanan", "Step 4 dari 4")
 
     if not model_loaded:
@@ -803,7 +803,7 @@ elif page == "Step 4: Demo":
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.markdown("**🥗 Kebiasaan Makan**")
+        st.markdown("**Kebiasaan Makan**")
         veggies_day  = st.slider("Porsi sayur per hari", 0, 7, 2, help="0 = tidak pernah, 7 = sangat sering")
         fruit_day    = st.slider("Porsi buah per hari", 0, 7, 2)
         eating_out   = st.slider("Frekuensi makan di luar per minggu", 0, 7, 4)
@@ -812,12 +812,12 @@ elif page == "Step 4: Demo":
         cook         = st.slider("Frekuensi masak sendiri per minggu", 0, 7, 2)
 
     with col2:
-        st.markdown("**💪 Gaya Hidup**")
+        st.markdown("**Gaya Hidup**")
         exercise = st.slider("Frekuensi olahraga per minggu", 0, 7, 1)
         sports   = st.slider("Frekuensi aktivitas sport per minggu", 0, 7, 1)
         coffee   = st.slider("Konsumsi kopi per hari", 0, 7, 2)
 
-        st.markdown("**😟 Kondisi Emosional**")
+        st.markdown("**Kondisi Emosional**")
         healthy_feeling = st.slider(
             "Seberapa sehat kamu merasa dirimu? (Mood)",
             1, 5, 3,
@@ -851,7 +851,7 @@ elif page == "Step 4: Demo":
         )
 
     with col3:
-        st.markdown("**👤 Profil Kamu**")
+        st.markdown("**Profil Kamu**")
         gender = st.radio("Gender", options=[0, 1], format_func=lambda x: "Perempuan" if x == 0 else "Laki-laki")
         on_off_campus = st.radio("Tempat tinggal", options=[0, 1], format_func=lambda x: "Off-campus" if x == 0 else "On-campus")
         employment = st.selectbox(
