@@ -804,11 +804,13 @@ elif page == "Step 4: Demo":
 
     with col1:
         st.markdown("**Mood (Kondisi Emosional)**")
-        healthy_feeling = st.slider(
+        healthy_feeling_emoji = st.select_slider(
             "Suasana Hati / Mood Harian",
-            1, 5, 3,
-            help="1 = sangat tidak sehat/mood buruk, 5 = sangat sehat/mood baik"
+            options=["😔", "😟", "😐", "😊", "😁"],
+            value="😐",
+            help="Geser untuk memilih mood Anda dari 😔 (sangat buruk/stres) hingga 😁 (sangat baik/sehat)"
         )
+        healthy_feeling = {"😔": 1, "😟": 2, "😐": 3, "😊": 4, "😁": 5}[healthy_feeling_emoji]
         comfort_food_reasons_coded = st.selectbox(
             "Alasan Utama Memilih Comfort Food",
             options=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
