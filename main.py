@@ -30,6 +30,7 @@ header {visibility: visible;}
 /* ── SIDEBAR ── */
 [data-testid="stSidebar"] {
     background: linear-gradient(180deg, #FF8D28 0%, #e07520 100%);
+    overflow: hidden !important;
 }
 [data-testid="stSidebar"] * { color: white !important; }
 [data-testid="stSidebar"] .stRadio label {
@@ -38,6 +39,12 @@ header {visibility: visible;}
     padding: 8px 0 !important;
 }
 [data-testid="stSidebar"] hr { border-color: rgba(255,255,255,0.2) !important; }
+
+/* Hide Scrollbar */
+[data-testid="stSidebar"]::-webkit-scrollbar { display: none; }
+[data-testid="stSidebarUserContent"]::-webkit-scrollbar { display: none; }
+[data-testid="stSidebar"] { -ms-overflow-style: none; scrollbar-width: none; }
+[data-testid="stSidebarUserContent"] { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* ── HERO ── */
 .hero-box {
@@ -283,12 +290,7 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("""
     <div style="padding: 0 10px;">
-        <div style="font-size:0.8rem; color:white; font-weight:700; margin-bottom:8px; opacity:0.9;">Kelompok 6</div>
-        <div style="font-size:0.7rem; color:rgba(255,255,255,0.75); line-height:1.8;">
-            Hasan<br>
-            Herlinda Angelica Tanjaya<br>
-            Sabrina Arfanindia D
-        </div>
+        <div style="font-size:0.8rem; color:white; font-weight:700; margin-bottom:8px; opacity:0.9; text-align:center;">Kelompok 6</div>
         <div style="margin-top:12px; font-size:0.65rem; color:rgba(255,255,255,0.45); text-align:center; border-top:1px solid rgba(255,255,255,0.15); padding-top:8px;">
             Machine Learning Project<br>
             Binus University · 2025/2026
