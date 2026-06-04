@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# Konfigurasi Halaman Web (Layout diperlebar agar kolom terlihat bagus)
 st.set_page_config(page_title="FoodVibe App", page_icon="🍔", layout="centered")
 
 # ==========================================
@@ -110,17 +109,17 @@ with col1:
         "Lapar biasa": 3,
         "Lainnya": 4
     }
-    mood_input = st.selectbox("🧠 Alasan mencari comfort food?", options=list(mood_options.keys()))
+    mood_input = st.selectbox("🧠 Kondisi Mood Utama Hari Ini?", options=list(mood_options.keys()))
 
     fries_options = {
         "Ya, sangat suka": 1,
         "Biasa saja / Tidak suka": 2
     }
-    fries_input = st.selectbox("🍟 Suka ngemil kentang goreng?", options=list(fries_options.keys()))
+    fries_input = st.selectbox("🍟 Kebiasaan ngemil makanan cepat saji (misal: kentang goreng)?", options=list(fries_options.keys()))
 
 with col2:
     eating_out_input = st.slider("🛵 Frekuensi makan di luar (per minggu)?", min_value=1, max_value=5, value=3)
-    nutri_input = st.slider("📋 Sering cek nutrisi sebelum makan?", min_value=1, max_value=5, value=2)
+    nutri_input = st.slider("📋 Sering cek label nutrisi makanan?", min_value=1, max_value=5, value=2)
 
 st.write("<br>", unsafe_allow_html=True) # Memberi jarak kosong
 
