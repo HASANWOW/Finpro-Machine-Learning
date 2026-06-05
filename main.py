@@ -342,7 +342,7 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("""
     <div style="padding: 0 10px;">
-        <div style="font-size:0.8rem; color:white; font-weight:700; margin-bottom:8px; opacity:0.9; text-align:center;">Kelompok 6</div>
+        <div style="font-size:0.8rem; color:white; font-weight:700; margin-bottom:8px; opacity:0.9; text-align:center;">Kelompok 6 (LC01)</div>
         <div style="margin-top:12px; font-size:0.65rem; color:rgba(255,255,255,0.45); text-align:center; border-top:1px solid rgba(255,255,255,0.15); padding-top:8px;">
             Machine Learning Project<br>
             Binus University · 2025/2026
@@ -511,7 +511,7 @@ if page == "Home":
     section("Tim Project")
     st.markdown("""
     <div class="info-card" style="background: linear-gradient(135deg, #ffffff 0%, #fffaf5 100%);">
-        <b style="color:#FF8D28; font-size:1rem; display:block; margin-bottom:2px;">Kelompok 6 – Universitas Bina Nusantara 2025/2026</b>
+        <b style="color:#FF8D28; font-size:1rem; display:block; margin-bottom:2px;">Kelompok 6 (LC01) – Universitas Bina Nusantara 2025/2026</b>
         <div style="color:#FF8D28; font-size:0.82rem; font-weight:normal; display:block; margin-bottom:12px;">Dosen: Johannes Simatupang, S.Kom., M.Kom</div>
         <table style="width:100%; font-size:0.85rem; color:#444; border-collapse:collapse;">
             <tr style="border-bottom:1px solid #ffe5cc;">
@@ -530,7 +530,7 @@ if page == "Home":
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="footer">FoodVibe &nbsp;|&nbsp; Machine Learning Project &nbsp;|&nbsp; Kelompok 6 – Binus University &nbsp;|&nbsp; 2025/2026</div>', unsafe_allow_html=True)
+    st.markdown('<div class="footer">FoodVibe &nbsp;|&nbsp; Machine Learning Project &nbsp;|&nbsp; Kelompok 6 (LC01) – Binus University &nbsp;|&nbsp; 2025/2026</div>', unsafe_allow_html=True)
 
 
 # ═══════════════════════════════════════════════════════
@@ -1456,4 +1456,4 @@ elif page == "Step 4: Demo":
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown('<div class="footer">FoodVibe &nbsp;|&nbsp; Step 4: Demo &nbsp;|&nbsp; Kelompok 6 – Binus University</div>', unsafe_allow_html=True)
+    st.markdown('<div class="footer">FoodVibe &nbsp;|&nbsp; Step 4: Demo &nbsp;|&nbsp; Kelompok 6 (LC01) – Binus University</div>', unsafe_allow_html=True)
