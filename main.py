@@ -1152,16 +1152,7 @@ elif page == "Step 4: Demo":
         )
 
     with col2:
-        st.markdown("**Rasa (Preferensi Makanan)**")
-        fav_cuisine_coded = st.selectbox(
-            "Masakan Favorit",
-            options=list(range(10)),
-            format_func=lambda x: {
-                0: "Indonesia", 1: "Japanese", 2: "Korean", 3: "Italian",
-                4: "Chinese", 5: "Indian", 6: "American", 7: "Mexican",
-                8: "Thai", 9: "Lainnya"
-            }.get(x, str(x))
-        )
+        st.markdown("**Nutrisi & Kalori**")
         calories_day = st.slider("Seberapa Peduli Anda Terhadap Kalori?", 0, 7, 3, help="0 = tidak peduli, 7 = sangat peduli")
 
     with col3:
@@ -1221,7 +1212,7 @@ elif page == "Step 4: Demo":
             'on_off_campus': on_off_campus,
             'employment': employment,
             'pay_meal_out': pay_meal_out,
-            'fav_cuisine_coded': fav_cuisine_coded,
+            'fav_cuisine_coded': 0, # Default: Indonesia
             'healthy_behavior_score': healthy_behavior_score,
             'emotional_eating_risk': emotional_eating_risk,
         }
