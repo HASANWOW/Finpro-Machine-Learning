@@ -955,15 +955,7 @@ elif page == "Step 4: Demo":
                 </div>
                 """, unsafe_allow_html=True)
 
-            # Display latency
-            st.markdown(f"""
-            <div style="text-align:center; margin-top:12px; font-size:0.8rem; color:#777;
-                        background:#fffaf5; border:1px solid #ffe5cc; border-radius:10px; padding:8px 12px;
-                        box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
-                ⏱️ <b>System Latency:</b> <span style="color:#FF8D28; font-weight:700;">{latency_ms:.2f} ms</span> &nbsp;|&nbsp; 
-                <span style="color:#2d9e5f; font-weight:700;">Memenuhi Syarat &lt; 100 ms</span>
-            </div>
-            """, unsafe_allow_html=True)
+
 
             # Faktor paling berpengaruh
             factors = [
@@ -1008,5 +1000,15 @@ elif page == "Step 4: Demo":
             if insights:
                 insights_html = "".join([f'<div style="font-size:0.83rem;color:#555;margin-bottom:6px;">{ins}</div>' for ins in insights[:3]])
                 st.markdown(f'<div class="info-card" style="border-left:4px solid #3498db;"><h4>Insight Personal</h4>{insights_html}</div>', unsafe_allow_html=True)
+
+        # Display latency at the bottom of the result columns (full width)
+        st.markdown(f"""
+        <div style="text-align:center; margin-top:20px; font-size:0.82rem; color:#777;
+                    background:#fffaf5; border:1px solid #ffe5cc; border-radius:12px; padding:10px 16px;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.04); clear:both;">
+            ⏱️ <b>System Latency:</b> <span style="color:#FF8D28; font-weight:700;">{latency_ms:.2f} ms</span> &nbsp;|&nbsp; 
+            <span style="color:#2d9e5f; font-weight:700;">Memenuhi Syarat &lt; 100 ms (Deployment Requirement)</span>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.markdown('<div class="footer">FoodVibe &nbsp;|&nbsp; Step 4: Demo &nbsp;|&nbsp; Kelompok 6 – Binus University</div>', unsafe_allow_html=True)
