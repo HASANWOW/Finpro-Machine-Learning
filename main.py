@@ -758,7 +758,7 @@ elif page == "Step 2: Preprocessing":
         comparisons = [
             (c1, "Total Fitur", "61", "18"),
             (c2, "Training Size", "100", "500 (aug)"),
-            (c3, "Missing Values", "Ada", "0"),
+            (c3, "Missing Values", "143", "0"),
             (c4, "Data Leakage", "❌ Ada", "✅ Bersih"),
         ]
         for col, label, before, after in comparisons:
