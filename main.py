@@ -809,6 +809,131 @@ elif page == "Step 2: Preprocessing":
         html_table += '</table>'
         st.markdown(html_table, unsafe_allow_html=True)
 
+        st.markdown("<br>", unsafe_allow_html=True)
+        section("Eksplorasi Preview Data")
+
+        try:
+            # 1. Sebelum Augmentasi (Original Cleaned)
+            csv_path = "Dataset/Food Vibe/food_coded.csv"
+            if not os.path.exists(csv_path):
+                csv_path = "d:/BINUS/Semester 4/Machine Learning/Project/Final Project/Dataset/Food Vibe/food_coded.csv"
+            df_raw_prep = pd.read_csv(csv_path)
+
+            features_before = [
+                'veggies_day', 'fruit_day', 'eating_out', 'exercise', 'calories_day',
+                'comfort_food_reasons_coded', 'eating_changes_coded', 'healthy_feeling',
+                'cook', 'sports', 'coffee', 'breakfast',
+                'on_off_campus', 'employment', 'pay_meal_out', 'fav_cuisine_coded'
+            ]
+
+            df_before = df_raw_prep[features_before].copy()
+            for col in df_before.columns:
+                df_before[col] = df_before[col].fillna(df_before[col].mode()[0] if not df_before[col].mode().empty else 0)
+
+            # 2. Sesudah Augmentasi (Augmented Training Data)
+            import numpy as np
+            from sklearn.model_selection import train_test_split
+
+            df_work_prep = df_raw_prep[features_before].copy()
+            for col in df_work_prep.columns:
+                df_work_prep[col] = df_work_prep[col].fillna(df_work_prep[col].mode()[0] if not df_work_prep[col].mode().empty else 0)
+            df_work_prep['diet_binary'] = (df_raw_prep['diet_current_coded'] <= 2).astype(int)
+
+            X_orig = df_work_prep[features_before]
+            y_orig = df_work_prep['diet_binary']
+            X_train, X_test, y_train, y_test = train_test_split(
+                X_orig, y_orig, test_size=0.2, random_state=42, stratify=y_orig
+            )
+
+            X_train = X_train.copy()
+            X_train['healthy_behavior_score'] = ((X_train['veggies_day'] >= 3).astype(int) + (X_train['exercise'] >= 2).astype(int))
+            X_train['emotional_eating_risk'] = ((X_train['comfort_food_reasons_coded'] > 0).astype(int) + (X_train['eating_changes_coded'] > 0).astype(int))
+
+            # Generate synthetic
+            np.random.seed(42)
+            n_samples = 200
+            syn_healthy = pd.DataFrame({
+                'veggies_day': np.clip(np.random.normal(4.5, 1.5, n_samples), 0, 7).astype(int),
+                'fruit_day': np.clip(np.random.normal(3.5, 1.5, n_samples), 0, 7).astype(int),
+                'eating_out': np.clip(np.random.normal(1.5, 1, n_samples), 0, 7).astype(int),
+                'exercise': np.clip(np.random.normal(3.5, 1.5, n_samples), 0, 7).astype(int),
+                'calories_day': np.clip(np.random.normal(3, 1.5, n_samples), 0, 7).astype(int),
+                'comfort_food_reasons_coded': np.clip(np.random.normal(0.5, 0.8, n_samples), 0, 3).astype(int),
+                'eating_changes_coded': np.clip(np.random.normal(0.3, 0.5, n_samples), 0, 3).astype(int),
+                'healthy_feeling': np.clip(np.random.normal(4, 0.8, n_samples), 1, 5).astype(int),
+                'cook': np.clip(np.random.normal(3, 1.5, n_samples), 0, 7).astype(int),
+                'sports': np.clip(np.random.normal(2.5, 1.5, n_samples), 0, 7).astype(int),
+                'coffee': np.clip(np.random.normal(1.5, 1.5, n_samples), 0, 7).astype(int),
+                'breakfast': np.clip(np.random.normal(3, 1.5, n_samples), 0, 7).astype(int),
+                'on_off_campus': np.random.randint(0, 2, n_samples),
+                'employment': np.random.randint(0, 3, n_samples),
+                'pay_meal_out': np.random.randint(0, 3, n_samples),
+                'fav_cuisine_coded': np.random.randint(0, 10, n_samples)
+            })
+
+            np.random.seed(99)
+            syn_unhealthy = pd.DataFrame({
+                'veggies_day': np.clip(np.random.normal(1.5, 1.5, n_samples), 0, 7).astype(int),
+                'fruit_day': np.clip(np.random.normal(0.8, 1, n_samples), 0, 7).astype(int),
+                'eating_out': np.clip(np.random.normal(4, 1.2, n_samples), 0, 7).astype(int),
+                'exercise': np.clip(np.random.normal(1, 1.5, n_samples), 0, 7).astype(int),
+                'calories_day': np.clip(np.random.normal(1.5, 1.5, n_samples), 0, 7).astype(int),
+                'comfort_food_reasons_coded': np.clip(np.random.normal(2.5, 1, n_samples), 0, 3).astype(int),
+                'eating_changes_coded': np.clip(np.random.normal(1.5, 1, n_samples), 0, 3).astype(int),
+                'healthy_feeling': np.clip(np.random.normal(2, 1, n_samples), 1, 5).astype(int),
+                'cook': np.clip(np.random.normal(1.5, 1.5, n_samples), 0, 7).astype(int),
+                'sports': np.clip(np.random.normal(0.5, 1, n_samples), 0, 7).astype(int),
+                'coffee': np.clip(np.random.normal(2.5, 1.5, n_samples), 0, 7).astype(int),
+                'breakfast': np.clip(np.random.normal(1, 1.5, n_samples), 0, 7).astype(int),
+                'on_off_campus': np.random.randint(0, 2, n_samples),
+                'employment': np.random.randint(0, 3, n_samples),
+                'pay_meal_out': np.random.randint(0, 3, n_samples),
+                'fav_cuisine_coded': np.random.randint(0, 10, n_samples)
+            })
+
+            X_syn = pd.concat([syn_healthy, syn_unhealthy], ignore_index=True)
+            X_syn['healthy_behavior_score'] = ((X_syn['veggies_day'] >= 3).astype(int) + (X_syn['exercise'] >= 2).astype(int))
+            X_syn['emotional_eating_risk'] = ((X_syn['comfort_food_reasons_coded'] > 0).astype(int) + (X_syn['eating_changes_coded'] > 0).astype(int))
+
+            # Tambahkan target diet_binary ke X_train asli sebelum penggabungan
+            X_train_with_y = X_train.copy()
+            X_train_with_y['diet_binary'] = y_train
+
+            # Tambahkan target diet_binary ke X_syn
+            X_syn_with_y = X_syn.copy()
+            X_syn_with_y['diet_binary'] = pd.Series([1]*n_samples + [0]*n_samples, index=X_syn.index)
+
+            # Gabungkan dengan aman
+            df_after = pd.concat([X_train_with_y, X_syn_with_y], ignore_index=True)
+
+            tab_raw_data, tab_prep_data = st.tabs([
+                "Sebelum Augmentasi (Original Cleaned)",
+                "Sesudah Augmentasi (Augmented Training)"
+            ])
+
+            with tab_raw_data:
+                mc1, mc2, mc3, mc4 = st.columns(4)
+                mc1.metric("Jumlah Baris", len(df_before))
+                mc2.metric("Jumlah Fitur", df_before.shape[1])
+                mc3.metric("Nilai Kosong", df_before.isnull().sum().sum())
+                mc4.metric("Duplikat", df_before.duplicated().sum())
+                
+                st.dataframe(df_before, use_container_width=True)
+
+            with tab_prep_data:
+                mc1, mc2, mc3, mc4 = st.columns(4)
+                mc1.metric("Jumlah Baris", len(df_after))
+                mc2.metric("Jumlah Fitur", df_after.shape[1])
+                mc3.metric("Nilai Kosong", df_after.isnull().sum().sum())
+                mc4.metric("Duplikat", df_after.duplicated().sum())
+                
+                st.dataframe(df_after, use_container_width=True)
+
+        except Exception as e:
+            st.error(f"Gagal mempreview dataset: {e}")
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
     st.markdown('<div class="footer">FoodVibe &nbsp;|&nbsp; Step 2: Preprocessing</div>', unsafe_allow_html=True)
 
 
