@@ -1297,6 +1297,8 @@ elif page == "Step 4: Demo":
     with col2:
         st.markdown("**Nutrisi & Kalori**")
         calories_day = st.slider("Seberapa Peduli Anda Terhadap Kalori?", 0, 7, 3, help="0 = tidak peduli, 7 = sangat peduli")
+        veggies_day = st.slider("Porsi sayur per hari", 0, 7, 2, help="0 = tidak pernah, 7 = sangat sering")
+        fruit_day = st.slider("Porsi buah per hari", 0, 7, 2)
 
     with col3:
         st.markdown("**Waktu & Kebiasaan (Konteks Harian)**")
@@ -1308,8 +1310,6 @@ elif page == "Step 4: Demo":
     with st.expander("Informasi Pendukung & Profil (Opsional)", expanded=False):
         ec1, ec2, ec3 = st.columns(3)
         with ec1:
-            veggies_day = st.slider("Porsi sayur per hari", 0, 7, 2, help="0 = tidak pernah, 7 = sangat sering")
-            fruit_day = st.slider("Porsi buah per hari", 0, 7, 2)
             coffee = st.slider("Konsumsi kopi per hari", 0, 7, 2)
         with ec2:
             exercise = st.slider("Frekuensi olahraga per minggu", 0, 7, 1)
