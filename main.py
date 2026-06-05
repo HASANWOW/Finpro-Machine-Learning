@@ -457,6 +457,11 @@ if page == "Home":
             """, unsafe_allow_html=True)
 
     section("Dokumentasi")
+    st.markdown("""
+    <div style="color:#FF8D28; font-size:0.82rem; font-weight:normal; display:block; margin-top:-15px; margin-bottom:12px;">
+        Link PPT: <a href="https://www.figma.com/proto/LTZYOvsw59NmK58VKTtxQh/Kelompok-6---ML-Final?node-id=11-434&p=f&t=Q4UBLYLrvn0MWk2x-1&scaling=contain&content-scaling=fixed&page-id=3%3A3&starting-point-node-id=8%3A270&show-proto-sidebar=1" target="_blank" style="color:#FF8D28; font-weight:700; text-decoration:underline;">Kelompok 6 - ML Final PPT</a>
+    </div>
+    """, unsafe_allow_html=True)
     dc1, dc2, dc3 = st.columns(3)
     with dc1:
         st.markdown("""
