@@ -1308,9 +1308,8 @@ elif page == "Step 4: Demo":
 
     # Expander untuk opsi pendukung / profil agar tidak membingungkan
     with st.expander("Informasi Pendukung & Profil (Opsional)", expanded=False):
-        ec1, ec2, ec3 = st.columns(3)
-        with ec1:
-            coffee = st.slider("Konsumsi kopi per hari", 0, 7, 2)
+        coffee = 0  # Dihapus dari UI – tidak signifikan
+        ec2, ec3 = st.columns(2)
         with ec2:
             exercise = st.slider("Frekuensi olahraga per minggu", 0, 7, 1)
             sports = st.slider("Frekuensi aktivitas sport per minggu", 0, 7, 1)
