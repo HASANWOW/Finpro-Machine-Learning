@@ -451,7 +451,7 @@ elif page == "Step 1: EDA":
         section("Ringkasan Dataset")
         c1, c2, c3, c4 = st.columns(4)
         metrics = [
-            (c1, "125", "responden asli (601 setelah augmentasi)", "Jumlah Sampel"),
+            (c1, "125", "responden asli (525 setelah augmentasi)", "Jumlah Sampel"),
             (c2, "61", "kolom", "Total Fitur"),
             (c3, "18", "fitur", "Fitur yang Digunakan"),
             (c4, "2", "kelas", "Target (Healthy/Unhealthy)"),
@@ -757,7 +757,7 @@ elif page == "Step 2: Preprocessing":
         c1, c2, c3, c4 = st.columns(4)
         comparisons = [
             (c1, "Total Fitur", "61", "18"),
-            (c2, "Training Size", "100", "576 (aug)"),
+            (c2, "Training Size", "100", "500 (aug)"),
             (c3, "Missing Values", "Ada", "0"),
             (c4, "Data Leakage", "❌ Ada", "✅ Bersih"),
         ]
