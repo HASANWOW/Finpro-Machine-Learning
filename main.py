@@ -1153,6 +1153,40 @@ elif page == "Step 3: Model":
             </div>
             """, unsafe_allow_html=True)
 
+            st.markdown("""
+            <div class="info-card">
+                <h4 style="color:#FF8D28; margin-bottom: 8px; font-size: 1rem;">Confusion Matrix (SVM Final Model)</h4>
+                <div style="font-size:0.8rem; color:#666; margin-bottom:12px; line-height: 1.4;">
+                    Menunjukkan detail klasifikasi hasil prediksi aktual vs. prediksi model.
+                </div>
+                <table style="width:100%; border-collapse: collapse; text-align: center; font-size:0.8rem; border: 1px solid #ffe5cc;">
+                    <thead>
+                        <tr style="background: #FF8D28; color: white;">
+                            <th style="padding: 6px; border: 1px solid #ffe5cc;" colspan="2" rowspan="2"></th>
+                            <th style="padding: 6px; border: 1px solid #ffe5cc; font-weight:700;" colspan="2">Prediksi Model</th>
+                        </tr>
+                        <tr style="background: #fff3e8; color: #FF8D28;">
+                            <th style="padding: 6px; border: 1px solid #ffe5cc; font-weight:700; width: 35%;">Unhealthy (0)</th>
+                            <th style="padding: 6px; border: 1px solid #ffe5cc; font-weight:700; width: 35%;">Healthy (1)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="background: #FF8D28; color: white; padding: 6px; border: 1px solid #ffe5cc; font-weight: 700; width: 10%;" rowspan="2"><b>Aktual</b></td>
+                            <td style="background: #fff3e8; color: #FF8D28; padding: 6px; border: 1px solid #ffe5cc; font-weight: 700; text-align: left;"><b>Unhealthy (0)</b></td>
+                            <td style="background: #ffebe6; color: #d9381e; font-weight: 900; font-size: 1rem; border: 1px solid #ffe5cc; padding: 10px;">2<br><span style="font-size: 0.65rem; font-weight: normal; color: #888;">TN</span></td>
+                            <td style="background: #fff5eb; color: #ff8d28; font-weight: 700; font-size: 0.9rem; border: 1px solid #ffe5cc; padding: 10px;">1<br><span style="font-size: 0.65rem; font-weight: normal; color: #888;">FP</span></td>
+                        </tr>
+                        <tr>
+                            <td style="background: #fff3e8; color: #FF8D28; padding: 6px; border: 1px solid #ffe5cc; font-weight: 700; text-align: left;"><b>Healthy (1)</b></td>
+                            <td style="background: #fff5eb; color: #ff8d28; font-weight: 700; font-size: 0.9rem; border: 1px solid #ffe5cc; padding: 10px;">1<br><span style="font-size: 0.65rem; font-weight: normal; color: #888;">FN</span></td>
+                            <td style="background: #e8f8ed; color: #2d9e5f; font-weight: 900; font-size: 1rem; border: 1px solid #ffe5cc; padding: 10px;">21<br><span style="font-size: 0.65rem; font-weight: normal; color: #888;">TP</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            """, unsafe_allow_html=True)
+
     st.markdown('<div class="footer">FoodVibe &nbsp;|&nbsp; Step 3: Model</div>', unsafe_allow_html=True)
 
 
