@@ -1125,34 +1125,7 @@ elif page == "Step 3: Model":
                 </div>
                 """, unsafe_allow_html=True)
 
-        with col2:
-            section("Metrik Evaluasi")
-            evals = [
-                ("F1-Score (Weighted)", "Metrik utama — menyeimbangkan precision & recall untuk dataset imbalanced", "#FF8D28"),
-                ("Accuracy", "Gambaran umum keakuratan prediksi keseluruhan", "#3498db"),
-                ("Confusion Matrix", "Visualisasi pola kesalahan klasifikasi per kelas", "#2d9e5f"),
-                ("Classification Report", "Precision, recall, F1 per kelas healthy & unhealthy", "#9b59b6"),
-                ("Matthews Correlation Coefficient (MCC): 0.6212", "Mengukur kualitas klasifikasi biner pada kelas imbalanced (tidak seimbang)", "#e74c3c"),
-            ]
-            for name, desc, color in evals:
-                st.markdown(f"""
-                <div class="info-card" style="border-left:4px solid {color}; padding:12px 14px; margin-bottom:10px;">
-                    <b style="color:{color};font-size:0.87rem;">{name}</b>
-                    <div style="font-size:0.79rem;color:#666;margin-top:4px;">{desc}</div>
-                </div>
-                """, unsafe_allow_html=True)
-
-            section("Kenapa SVM Dipilih?")
-            st.markdown("""
-            <div class="section-desc" style="font-size:0.85rem;">
-                SVM dengan RBF Kernel mampu memetakan data ke <b>ruang dimensi lebih tinggi</b>
-                sehingga menghasilkan decision boundary yang lebih presisi dibanding tree-based methods
-                pada dataset berukuran kecil (~125 sampel asli).<br><br>
-                <b>Hyperparameter tuning:</b><br>
-                C = 10 &nbsp;|&nbsp; kernel = rbf &nbsp;|&nbsp; class_weight = balanced
-            </div>
-            """, unsafe_allow_html=True)
-
+            st.markdown("<br>", unsafe_allow_html=True)
             st.markdown("""
             <div class="info-card">
                 <h4 style="color:#FF8D28; margin-bottom: 8px; font-size: 1rem;">Confusion Matrix (SVM Final Model)</h4>
@@ -1186,6 +1159,36 @@ elif page == "Step 3: Model":
                 </table>
             </div>
             """, unsafe_allow_html=True)
+
+        with col2:
+            section("Metrik Evaluasi")
+            evals = [
+                ("F1-Score (Weighted)", "Metrik utama — menyeimbangkan precision & recall untuk dataset imbalanced", "#FF8D28"),
+                ("Accuracy", "Gambaran umum keakuratan prediksi keseluruhan", "#3498db"),
+                ("Confusion Matrix", "Visualisasi pola kesalahan klasifikasi per kelas", "#2d9e5f"),
+                ("Classification Report", "Precision, recall, F1 per kelas healthy & unhealthy", "#9b59b6"),
+                ("Matthews Correlation Coefficient (MCC): 0.6212", "Mengukur kualitas klasifikasi biner pada kelas imbalanced (tidak seimbang)", "#e74c3c"),
+            ]
+            for name, desc, color in evals:
+                st.markdown(f"""
+                <div class="info-card" style="border-left:4px solid {color}; padding:12px 14px; margin-bottom:10px;">
+                    <b style="color:{color};font-size:0.87rem;">{name}</b>
+                    <div style="font-size:0.79rem;color:#666;margin-top:4px;">{desc}</div>
+                </div>
+                """, unsafe_allow_html=True)
+
+            section("Kenapa SVM Dipilih?")
+            st.markdown("""
+            <div class="section-desc" style="font-size:0.85rem;">
+                SVM dengan RBF Kernel mampu memetakan data ke <b>ruang dimensi lebih tinggi</b>
+                sehingga menghasilkan decision boundary yang lebih presisi dibanding tree-based methods
+                pada dataset berukuran kecil (~125 sampel asli).<br><br>
+                <b>Hyperparameter tuning:</b><br>
+                C = 10 &nbsp;|&nbsp; kernel = rbf &nbsp;|&nbsp; class_weight = balanced
+            </div>
+            """, unsafe_allow_html=True)
+
+
 
     st.markdown('<div class="footer">FoodVibe &nbsp;|&nbsp; Step 3: Model</div>', unsafe_allow_html=True)
 
