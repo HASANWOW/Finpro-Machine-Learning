@@ -802,13 +802,12 @@ elif page == "Step 2: Preprocessing":
             ("healthy_behavior_score", "Skor perilaku sehat (composite)", "Engineered"),
             ("emotional_eating_risk", "Risiko emotional eating (composite)", "Engineered"),
         ]
-        st.markdown("""
-        <table class="eval-table">
-            <tr><th>#</th><th>Fitur</th><th>Deskripsi</th><th>Tipe</th></tr>
-        """ + "".join([
-            f"<tr><td>{i+1}</td><td><b>{f}</b></td><td>{d}</td><td><span style='font-size:0.78rem;background:#fff3e8;color:#FF8D28;padding:2px 8px;border-radius:6px;'>{t}</span></td></tr>"
-            for i, (f, d, t) in enumerate(fitur_list)
-        ]) + "</table>", unsafe_allow_html=True)
+        html_table = '<table class="eval-table">'
+        html_table += '<tr><th>#</th><th>Fitur</th><th>Deskripsi</th><th>Tipe</th></tr>'
+        for i, (f, d, t) in enumerate(fitur_list):
+            html_table += f"<tr><td>{i+1}</td><td><b>{f}</b></td><td>{d}</td><td><span style='font-size:0.78rem;background:#fff3e8;color:#FF8D28;padding:2px 8px;border-radius:6px;'>{t}</span></td></tr>"
+        html_table += '</table>'
+        st.markdown(html_table, unsafe_allow_html=True)
 
     st.markdown('<div class="footer">FoodVibe &nbsp;|&nbsp; Step 2: Preprocessing</div>', unsafe_allow_html=True)
 
