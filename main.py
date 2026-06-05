@@ -1127,18 +1127,13 @@ elif page == "Step 3: Model":
 
             st.markdown("<br>", unsafe_allow_html=True)
             section("Confusion Matrix (SVM Final Model)")
-            st.markdown("""
-            <div class="section-desc" style="margin-bottom: 15px;">
-                Visualisasi matriks konfusi (confusion matrix) untuk model final SVM pada data pengujian.
-            </div>
-            """, unsafe_allow_html=True)
 
             try:
                 import matplotlib.pyplot as plt
                 import seaborn as sns
                 
                 sns.set_theme(style='white')
-                fig_cm, ax_cm = plt.subplots(figsize=(6.5, 5))
+                fig_cm, ax_cm = plt.subplots(figsize=(5.2, 4.0))
                 cm_data = np.array([[2, 1], [1, 21]])
                 
                 sns.heatmap(
@@ -1148,15 +1143,15 @@ elif page == "Step 3: Model":
                     cmap='Blues', 
                     xticklabels=['Unhealthy', 'Relatively Healthy'],
                     yticklabels=['Unhealthy', 'Relatively Healthy'],
-                    annot_kws={"size": 14},
+                    annot_kws={"size": 12},
                     cbar=True,
                     ax=ax_cm
                 )
-                ax_cm.set_title('Final Confusion Matrix (Balance Optimized - Thresh: 0.720)', fontsize=11, fontweight='bold', pad=12, color='#1d2b22')
-                ax_cm.set_xlabel('Predicted Choice', fontsize=10, labelpad=8)
-                ax_cm.set_ylabel('Actual Choice', fontsize=10, labelpad=8)
-                plt.xticks(rotation=0)
-                plt.yticks(rotation=90, va="center")
+                ax_cm.set_title('Final Confusion Matrix (Balance Optimized - Thresh: 0.720)', fontsize=10, fontweight='bold', pad=10, color='#1d2b22')
+                ax_cm.set_xlabel('Predicted Choice', fontsize=9, labelpad=6)
+                ax_cm.set_ylabel('Actual Choice', fontsize=9, labelpad=6)
+                plt.xticks(rotation=0, fontsize=8)
+                plt.yticks(rotation=90, va="center", fontsize=8)
                 plt.tight_layout()
                 st.pyplot(fig_cm)
             except Exception as e:
