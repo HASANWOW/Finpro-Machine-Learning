@@ -15,6 +15,42 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────
+# QUERY PARAMETERS HELPERS
+# ─────────────────────────────────────────
+def get_query_param(key, default="false"):
+    if hasattr(st, "query_params"):
+        return st.query_params.get(key, default)
+    try:
+        params = st.experimental_get_query_params()
+        return params.get(key, [default])[0]
+    except Exception:
+        return default
+
+def set_query_param(key, value):
+    if hasattr(st, "query_params"):
+        st.query_params[key] = value
+    else:
+        try:
+            params = st.experimental_get_query_params()
+            params[key] = [value]
+            st.experimental_set_query_params(**params)
+        except Exception:
+            pass
+
+def safe_rerun():
+    if hasattr(st, "rerun"):
+        st.rerun()
+    else:
+        st.experimental_rerun()
+
+# ─────────────────────────────────────────
+# INITIALIZE SESSION STATE FROM URL
+# ─────────────────────────────────────────
+st.session_state["run_eda"] = get_query_param("run_eda", "false") == "true"
+st.session_state["run_preprocessing"] = get_query_param("run_preprocessing", "false") == "true"
+st.session_state["run_model"] = get_query_param("run_model", "false") == "true"
+
+# ─────────────────────────────────────────
 # CSS GLOBAL
 # ─────────────────────────────────────────
 st.markdown("""
@@ -275,15 +311,31 @@ with st.sidebar:
     """, unsafe_allow_html=True)
     st.markdown("---")
 
+    if "page" not in st.session_state:
+        st.session_state["page"] = get_query_param("page", "Home")
+
+    page_options = [
+        "Home",
+        "Step 1: EDA",
+        "Step 2: Preprocessing",
+        "Step 3: Model",
+        "Step 4: Demo",
+    ]
+    if st.session_state["page"] not in page_options:
+        st.session_state["page"] = "Home"
+
+    def on_page_change():
+        set_query_param("page", st.session_state["nav_radio"])
+        st.session_state["page"] = st.session_state["nav_radio"]
+
+    page_index = page_options.index(st.session_state["page"])
+
     page = st.radio(
         "Navigasi",
-        options=[
-            "Home",
-            "Step 1: EDA",
-            "Step 2: Preprocessing",
-            "Step 3: Model",
-            "Step 4: Demo",
-        ],
+        options=page_options,
+        index=page_index,
+        key="nav_radio",
+        on_change=on_page_change,
         label_visibility="collapsed"
     )
 
@@ -444,6 +496,8 @@ elif page == "Step 1: EDA":
 
     if st.button("Jalankan EDA", use_container_width=True):
         st.session_state["run_eda"] = True
+        set_query_param("run_eda", "true")
+        safe_rerun()
 
     if st.session_state.get("run_eda", False):
         st.success("EDA berhasil dijalankan!")
@@ -714,6 +768,8 @@ elif page == "Step 2: Preprocessing":
 
     if st.button("Jalankan Preprocessing", use_container_width=True):
         st.session_state["run_preprocessing"] = True
+        set_query_param("run_preprocessing", "true")
+        safe_rerun()
 
     if st.session_state.get("run_preprocessing", False):
         st.success("Preprocessing berhasil dijalankan!")
@@ -952,6 +1008,8 @@ elif page == "Step 3: Model":
 
     if st.button("Jalankan Model Evaluation", use_container_width=True):
         st.session_state["run_model"] = True
+        set_query_param("run_model", "true")
+        safe_rerun()
 
     if st.session_state.get("run_model", False):
         st.success("Model evaluation berhasil dijalankan!")
