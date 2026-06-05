@@ -451,7 +451,7 @@ elif page == "Step 1: EDA":
         section("Ringkasan Dataset")
         c1, c2, c3, c4 = st.columns(4)
         metrics = [
-            (c1, "125", "responden", "Jumlah Sampel"),
+            (c1, "125", "responden asli (601 setelah augmentasi)", "Jumlah Sampel"),
             (c2, "61", "kolom", "Total Fitur"),
             (c3, "18", "fitur", "Fitur yang Digunakan"),
             (c4, "2", "kelas", "Target (Healthy/Unhealthy)"),
