@@ -1126,39 +1126,41 @@ elif page == "Step 3: Model":
                 """, unsafe_allow_html=True)
 
             st.markdown("<br>", unsafe_allow_html=True)
+            section("Confusion Matrix (SVM Final Model)")
             st.markdown("""
-            <div class="info-card">
-                <h4 style="color:#FF8D28; margin-bottom: 8px; font-size: 1rem;">Confusion Matrix (SVM Final Model)</h4>
-                <div style="font-size:0.8rem; color:#666; margin-bottom:12px; line-height: 1.4;">
-                    Menunjukkan detail klasifikasi hasil prediksi aktual vs. prediksi model.
-                </div>
-                <table style="width:100%; border-collapse: collapse; text-align: center; font-size:0.8rem; border: 1px solid #ffe5cc;">
-                    <thead>
-                        <tr style="background: #FF8D28; color: white;">
-                            <th style="padding: 6px; border: 1px solid #ffe5cc;" colspan="2" rowspan="2"></th>
-                            <th style="padding: 6px; border: 1px solid #ffe5cc; font-weight:700;" colspan="2">Prediksi Model</th>
-                        </tr>
-                        <tr style="background: #fff3e8; color: #FF8D28;">
-                            <th style="padding: 6px; border: 1px solid #ffe5cc; font-weight:700; width: 35%;">Unhealthy (0)</th>
-                            <th style="padding: 6px; border: 1px solid #ffe5cc; font-weight:700; width: 35%;">Healthy (1)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="background: #FF8D28; color: white; padding: 6px; border: 1px solid #ffe5cc; font-weight: 700; width: 10%;" rowspan="2"><b>Aktual</b></td>
-                            <td style="background: #fff3e8; color: #FF8D28; padding: 6px; border: 1px solid #ffe5cc; font-weight: 700; text-align: left;"><b>Unhealthy (0)</b></td>
-                            <td style="background: #ffebe6; color: #d9381e; font-weight: 900; font-size: 1rem; border: 1px solid #ffe5cc; padding: 10px;">2<br><span style="font-size: 0.65rem; font-weight: normal; color: #888;">TN</span></td>
-                            <td style="background: #fff5eb; color: #ff8d28; font-weight: 700; font-size: 0.9rem; border: 1px solid #ffe5cc; padding: 10px;">1<br><span style="font-size: 0.65rem; font-weight: normal; color: #888;">FP</span></td>
-                        </tr>
-                        <tr>
-                            <td style="background: #fff3e8; color: #FF8D28; padding: 6px; border: 1px solid #ffe5cc; font-weight: 700; text-align: left;"><b>Healthy (1)</b></td>
-                            <td style="background: #fff5eb; color: #ff8d28; font-weight: 700; font-size: 0.9rem; border: 1px solid #ffe5cc; padding: 10px;">1<br><span style="font-size: 0.65rem; font-weight: normal; color: #888;">FN</span></td>
-                            <td style="background: #e8f8ed; color: #2d9e5f; font-weight: 900; font-size: 1rem; border: 1px solid #ffe5cc; padding: 10px;">21<br><span style="font-size: 0.65rem; font-weight: normal; color: #888;">TP</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="section-desc" style="margin-bottom: 15px;">
+                Visualisasi matriks konfusi (confusion matrix) untuk model final SVM pada data pengujian.
             </div>
             """, unsafe_allow_html=True)
+
+            try:
+                import matplotlib.pyplot as plt
+                import seaborn as sns
+                
+                sns.set_theme(style='white')
+                fig_cm, ax_cm = plt.subplots(figsize=(6.5, 5))
+                cm_data = np.array([[2, 1], [1, 21]])
+                
+                sns.heatmap(
+                    cm_data, 
+                    annot=True, 
+                    fmt='d', 
+                    cmap='Blues', 
+                    xticklabels=['Unhealthy', 'Relatively Healthy'],
+                    yticklabels=['Unhealthy', 'Relatively Healthy'],
+                    annot_kws={"size": 14},
+                    cbar=True,
+                    ax=ax_cm
+                )
+                ax_cm.set_title('Final Confusion Matrix (Balance Optimized - Thresh: 0.720)', fontsize=11, fontweight='bold', pad=12, color='#1d2b22')
+                ax_cm.set_xlabel('Predicted Choice', fontsize=10, labelpad=8)
+                ax_cm.set_ylabel('Actual Choice', fontsize=10, labelpad=8)
+                plt.xticks(rotation=0)
+                plt.yticks(rotation=90, va="center")
+                plt.tight_layout()
+                st.pyplot(fig_cm)
+            except Exception as e:
+                st.error(f"Gagal memvisualisasikan Confusion Matrix: {e}")
 
         with col2:
             section("Metrik Evaluasi")
