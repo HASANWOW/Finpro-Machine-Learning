@@ -958,20 +958,55 @@ elif page == "Step 3: Model":
     if st.session_state.get("run_model", False):
         st.success("Model evaluation berhasil dijalankan!")
 
-        section("Perbandingan 3 Model")
-        col1, col2, col3 = st.columns(3)
-        models = [
-            (col1, "Logistic Regression", "Baseline", "#3498db",
+        section("Model Sebelum Augmentasi")
+        col_sa1, col_sa2, col_sa3 = st.columns(3)
+        models_before = [
+            (col_sa1, "Logistic Regression", "Baseline", "#3498db",
+             "0.4436", "0.4400",
+             "Model dasar tanpa penyeimbangan data. Performa sangat rendah karena ketidakseimbangan kelas target asli."),
+            (col_sa2, "Random Forest", "Model Utama", "#2d9e5f",
+             "0.5247", "0.5200",
+             "Model pohon keputusan sebelum augmentasi. Cenderung mengalami bias dan overfitting pada kelas mayoritas."),
+            (col_sa3, "SVM (RBF Kernel)", "Model Final", "#FF8D28",
+             "0.6000", "0.6000",
+             "Model SVM sebelum penyeimbangan. Batas keputusan (boundary) tidak stabil karena keterbatasan data minoritas."),
+        ]
+        for col, name, badge, color, f1, acc, desc in models_before:
+            with col:
+                st.markdown(f"""
+                <div class="info-card" style="border-top:4px solid {color}; text-align:center;">
+                    <div style="font-size:0.78rem;background:{color};color:white;border-radius:8px;
+                                padding:2px 10px;display:inline-block;margin-bottom:10px;">{badge}</div>
+                    <div style="font-weight:800;color:#1d2b22;font-size:1rem;margin-bottom:12px;">{name}</div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+                        <div style="background:#fffaf5;border-radius:8px;padding:8px;">
+                            <div style="font-size:1.3rem;font-weight:900;color:{color};">{f1}</div>
+                            <div style="font-size:0.72rem;color:#888;">F1-Score</div>
+                        </div>
+                        <div style="background:#fffaf5;border-radius:8px;padding:8px;">
+                            <div style="font-size:1.3rem;font-weight:900;color:{color};">{acc}</div>
+                            <div style="font-size:0.72rem;color:#888;">Accuracy</div>
+                        </div>
+                    </div>
+                    <div style="font-size:0.8rem;color:#666;text-align:left;">{desc}</div>
+                </div>
+                """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        section("Model Sesudah Augmentasi")
+        col_da1, col_da2, col_da3 = st.columns(3)
+        models_after = [
+            (col_da1, "Logistic Regression", "Baseline", "#3498db",
              "0.8693", "0.8800",
              "Model sederhana & interpretable. Digunakan sebagai baseline perbandingan."),
-            (col2, "Random Forest", "Model Utama", "#2d9e5f",
+            (col_da2, "Random Forest", "Model Utama", "#2d9e5f",
              "0.8238", "0.8800",
              "Menangani hubungan non-linear. Menyediakan feature_importances_ untuk analisis."),
-            (col3, "SVM (RBF Kernel)", "Model Final", "#FF8D28",
+            (col_da3, "SVM (RBF Kernel)", "Model Final", "#FF8D28",
              "0.9200", "0.9200",
              "Decision boundary paling presisi. Dipilih sebagai model final yang di-deploy."),
         ]
-        for col, name, badge, color, f1, acc, desc in models:
+        for col, name, badge, color, f1, acc, desc in models_after:
             with col:
                 st.markdown(f"""
                 <div class="info-card" style="border-top:4px solid {color}; text-align:center;">
