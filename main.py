@@ -523,7 +523,20 @@ elif page == "Step 1: EDA":
 
         # Visualisasi Distribusi & Pola Korelasi (dari Notebook)
         st.markdown("<br>", unsafe_allow_html=True)
-        section("Visualisasi Distribusi & Pola Korelasi (dari Notebook)")
+        section("Visualisasi & Eksplorasi Data Mendalam")
+        st.markdown("""
+        <div class="section-desc" style="margin-bottom: 20px;">
+            Berikut adalah visualisasi interaktif dan analisis korelasi yang diambil langsung dari Jupyter Notebook proyek kami.
+            Gunakan tab di bawah ini untuk berpindah sudut pandang analisis.
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Membuat Tabs
+        tab_dist, tab_corr, tab_importance = st.tabs([
+            "📊 Hubungan & Distribusi Data", 
+            "🌡️ Matriks Korelasi (Heatmap)", 
+            "🔑 Fitur Paling Berpengaruh (Drivers)"
+        ])
 
         try:
             import matplotlib.pyplot as plt
@@ -545,45 +558,119 @@ elif page == "Step 1: EDA":
                 if col in df_plot.columns and df_plot[col].isnull().sum() > 0:
                     df_plot[col] = df_plot[col].fillna(df_plot[col].mode()[0])
 
-            # Subplots
-            sns.set_theme(style='whitegrid')
-            fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+            # Tab 1: Hubungan & Distribusi Data (2x2 Grid)
+            with tab_dist:
+                st.markdown("#### Grid Hubungan & Pola Perilaku Makan")
+                st.markdown("""
+                <div style="font-size:0.83rem; color:#555; margin-bottom:15px;">
+                    Visualisasi 2x2 grid ini menunjukkan hubungan silang antara konsumsi buah/sayur, tingkat olahraga, 
+                    dan perasaan sehat (healthy feeling) terhadap kategori pola makan (Healthy vs Unhealthy).
+                </div>
+                """, unsafe_allow_html=True)
 
-            # Color palette
-            colors_dict = {0: '#e74c3c', 1: '#2d9e5f'} # Unhealthy vs Healthy
+                sns.set_theme(style='whitegrid')
+                fig, axes = plt.subplots(2, 2, figsize=(14, 10))
 
-            # 1. Target Distribution
-            sns.countplot(x='diet_binary', data=df_plot, ax=axes[0, 0], palette=['#e74c3c', '#2d9e5f'])
-            axes[0, 0].set_title('Distribution of Target (diet_binary)', fontsize=11, fontweight='bold', color='#1d2b22')
-            axes[0, 0].set_xticklabels(['Unhealthy (0)', 'Relatively Healthy (1)'])
-            axes[0, 0].set_xlabel('diet_binary')
-            axes[0, 0].set_ylabel('count')
+                # Color palette
+                colors_dict = {0: '#e74c3c', 1: '#2d9e5f'} # Unhealthy vs Healthy
 
-            # 2. Fruit vs Veggies scatter
-            sns.scatterplot(x='fruit_day', y='veggies_day', hue='diet_binary', data=df_plot, ax=axes[0, 1], alpha=0.7, palette=colors_dict)
-            axes[0, 1].set_title('Fruit vs Veggie Consumption', fontsize=11, fontweight='bold', color='#1d2b22')
-            axes[0, 1].set_xlabel('fruit_day')
-            axes[0, 1].set_ylabel('veggies_day')
-            # Custom legend
-            handles, labels = axes[0, 1].get_legend_handles_labels()
-            axes[0, 1].legend(handles, ['Unhealthy (0)', 'Relatively Healthy (1)'], title='diet_binary')
+                # 1. Target Distribution
+                sns.countplot(x='diet_binary', data=df_plot, ax=axes[0, 0], palette=['#e74c3c', '#2d9e5f'])
+                axes[0, 0].set_title('Distribution of Target (diet_binary)', fontsize=11, fontweight='bold', color='#1d2b22')
+                axes[0, 0].set_xticklabels(['Unhealthy (0)', 'Relatively Healthy (1)'])
+                axes[0, 0].set_xlabel('diet_binary')
+                axes[0, 0].set_ylabel('count')
 
-            # 3. Healthy Feeling Distribution
-            sns.boxplot(x='diet_binary', y='healthy_feeling', data=df_plot, ax=axes[1, 0], palette=['#e74c3c', '#2d9e5f'])
-            axes[1, 0].set_title('Healthy Feeling by Class', fontsize=11, fontweight='bold', color='#1d2b22')
-            axes[1, 0].set_xticklabels(['Unhealthy (0)', 'Relatively Healthy (1)'])
-            axes[1, 0].set_xlabel('diet_binary')
-            axes[1, 0].set_ylabel('healthy_feeling')
+                # 2. Fruit vs Veggies scatter
+                sns.scatterplot(x='fruit_day', y='veggies_day', hue='diet_binary', data=df_plot, ax=axes[0, 1], alpha=0.7, palette=colors_dict)
+                axes[0, 1].set_title('Fruit vs Veggie Consumption', fontsize=11, fontweight='bold', color='#1d2b22')
+                axes[0, 1].set_xlabel('fruit_day')
+                axes[0, 1].set_ylabel('veggies_day')
+                # Custom legend
+                handles, labels = axes[0, 1].get_legend_handles_labels()
+                axes[0, 1].legend(handles, ['Unhealthy (0)', 'Relatively Healthy (1)'], title='diet_binary')
 
-            # 4. Exercise Frequency
-            sns.violinplot(x='diet_binary', y='exercise', data=df_plot, ax=axes[1, 1], palette=['#e74c3c', '#2d9e5f'])
-            axes[1, 1].set_title('Exercise Frequency by Class', fontsize=11, fontweight='bold', color='#1d2b22')
-            axes[1, 1].set_xticklabels(['Unhealthy (0)', 'Relatively Healthy (1)'])
-            axes[1, 1].set_xlabel('diet_binary')
-            axes[1, 1].set_ylabel('exercise')
+                # 3. Healthy Feeling Distribution
+                sns.boxplot(x='diet_binary', y='healthy_feeling', data=df_plot, ax=axes[1, 0], palette=['#e74c3c', '#2d9e5f'])
+                axes[1, 0].set_title('Healthy Feeling by Class', fontsize=11, fontweight='bold', color='#1d2b22')
+                axes[1, 0].set_xticklabels(['Unhealthy (0)', 'Relatively Healthy (1)'])
+                axes[1, 0].set_xlabel('diet_binary')
+                axes[1, 0].set_ylabel('healthy_feeling')
 
-            plt.tight_layout()
-            st.pyplot(fig)
+                # 4. Exercise Frequency
+                sns.violinplot(x='diet_binary', y='exercise', data=df_plot, ax=axes[1, 1], palette=['#e74c3c', '#2d9e5f'])
+                axes[1, 1].set_title('Exercise Frequency by Class', fontsize=11, fontweight='bold', color='#1d2b22')
+                axes[1, 1].set_xticklabels(['Unhealthy (0)', 'Relatively Healthy (1)'])
+                axes[1, 1].set_xlabel('diet_binary')
+                axes[1, 1].set_ylabel('exercise')
+
+                plt.tight_layout()
+                st.pyplot(fig)
+
+            # Tab 2: Matriks Korelasi (Heatmap Segitiga)
+            with tab_corr:
+                st.markdown("#### Matriks Korelasi Fitur Mentah (Raw Feature Correlation Matrix)")
+                st.markdown("""
+                <div style="font-size:0.83rem; color:#555; margin-bottom:15px;">
+                    Matriks korelasi segitiga (lower triangle) menunjukkan hubungan linier antara seluruh fitur numerik 
+                    dalam dataset. Warna merah menunjukkan korelasi negatif, sedangkan biru menunjukkan korelasi positif.
+                </div>
+                """, unsafe_allow_html=True)
+
+                # Ambil kolom numerik
+                numeric_cols = df_raw.select_dtypes(include=[np.number]).columns
+                # Ganti nama agar lebih informatif
+                corr_data = df_plot[numeric_cols].copy()
+                if 'diet_current_coded' in corr_data.columns:
+                    corr_data = corr_data.rename(columns={'diet_current_coded': 'diet_original'})
+
+                corr = corr_data.corr()
+                mask = np.triu(np.ones_like(corr, dtype=bool))
+
+                fig_corr, ax_corr = plt.subplots(figsize=(12, 10))
+                sns.heatmap(corr, mask=mask, annot=False, cmap='RdBu', center=0, ax=ax_corr, cbar_kws={"shrink": .8})
+                ax_corr.set_title('Raw Feature Correlation Matrix', fontsize=12, fontweight='bold', pad=15, color='#1d2b22')
+                plt.xticks(rotation=90, fontsize=8)
+                plt.yticks(rotation=0, fontsize=8)
+                plt.tight_layout()
+                st.pyplot(fig_corr)
+
+            # Tab 3: Fitur Paling Berpengaruh (Feature Importance)
+            with tab_importance:
+                st.markdown("#### Driver Utama Klasifikasi Pilihan Makanan (Feature Importance)")
+                st.markdown("""
+                <div style="font-size:0.83rem; color:#555; margin-bottom:15px;">
+                    Kontribusi relatif dari setiap fitur dalam menentukan pola makan sehat vs tidak sehat, 
+                    dihitung menggunakan algoritma <b>Random Forest Classifier</b> yang telah dituning.
+                </div>
+                """, unsafe_allow_html=True)
+
+                importance_data = {
+                    'Feature': [
+                        'fruit_day', 'eating_out', 'healthy_feeling', 'veggies_day', 
+                        'healthy_behavior_score', 'sports', 'comfort_food_reasons_coded', 
+                        'eating_changes_coded', 'cook', 'exercise', 'calories_day', 
+                        'breakfast', 'pay_meal_out', 'on_off_campus', 'employment', 
+                        'coffee', 'fav_cuisine_coded', 'emotional_eating_risk'
+                    ],
+                    'Importance': [
+                        0.250747, 0.153819, 0.125315, 0.124757, 
+                        0.065181, 0.062071, 0.043819, 0.034965, 
+                        0.026483, 0.022662, 0.021516, 0.018618, 
+                        0.014880, 0.012811, 0.009693, 0.009206, 
+                        0.002525, 0.000932
+                    ]
+                }
+                feat_imp_df = pd.DataFrame(importance_data)
+
+                fig_imp, ax_imp = plt.subplots(figsize=(10, 8))
+                sns.barplot(x='Importance', y='Feature', data=feat_imp_df, palette='magma', ax=ax_imp)
+                ax_imp.set_title('Feature Importance: Key Drivers of Food Choice Classification', fontsize=12, fontweight='bold', pad=15, color='#1d2b22')
+                ax_imp.set_xlabel('Importance', fontsize=10)
+                ax_imp.set_ylabel('Feature', fontsize=10)
+                plt.tight_layout()
+                st.pyplot(fig_imp)
+
         except Exception as e:
             st.error(f"Gagal memuat visualisasi: {e}")
 
