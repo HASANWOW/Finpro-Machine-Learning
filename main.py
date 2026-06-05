@@ -722,9 +722,9 @@ elif page == "Step 2: Preprocessing":
         col1, col2 = st.columns(2)
 
         steps_left = [
-            ("1. Data Cleaning", "Missing values pada kolom kategorikal diisi dengan imputasi modus. Kolom tidak relevan dari 61 kolom disaring menjadi 17 fitur utama."),
-            ("2. Label Encoding", "Variabel kategorikal (gender, on_off_campus, employment, fav_cuisine_coded) dikonversi ke numerik menggunakan LabelEncoder."),
-            ("3. Feature Selection", "17 fitur dipilih berdasarkan relevansi terhadap lifestyle & emotional triggers — fokus pada variabel yang berkorelasi dengan diet_current_coded."),
+            ("1. Data Cleaning", "Missing values pada kolom kategorikal diisi dengan imputasi modus. Kolom tidak relevan dari 61 kolom disaring menjadi 16 fitur utama."),
+            ("2. Label Encoding", "Variabel kategorikal (on_off_campus, employment, fav_cuisine_coded) dikonversi ke numerik menggunakan LabelEncoder. Gender dibuang karena ketidakcocokan nama kolom di dataset."),
+            ("3. Feature Selection", "16 fitur dipilih berdasarkan relevansi terhadap lifestyle & emotional triggers — fokus pada variabel yang berkorelasi dengan diet_current_coded."),
             ("4. Composite Features", "2 fitur baru dibuat: healthy_behavior_score (veggies ≥ 3 + exercise ≥ 2) dan emotional_eating_risk (comfort food reasons + eating changes)."),
         ]
         steps_right = [
@@ -756,8 +756,8 @@ elif page == "Step 2: Preprocessing":
         section("Before vs After")
         c1, c2, c3, c4 = st.columns(4)
         comparisons = [
-            (c1, "Total Fitur", "61", "19"),
-            (c2, "Training Size", "100", "~320 (aug)"),
+            (c1, "Total Fitur", "61", "18"),
+            (c2, "Training Size", "100", "576 (aug)"),
             (c3, "Missing Values", "Ada", "0"),
             (c4, "Data Leakage", "❌ Ada", "✅ Bersih"),
         ]
@@ -781,7 +781,7 @@ elif page == "Step 2: Preprocessing":
                 """, unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
-        section("Fitur yang Digunakan (19 Fitur Final)")
+        section("Fitur yang Digunakan (18 Fitur Final)")
         fitur_list = [
             ("veggies_day", "Porsi sayur per hari", "Numerik"),
             ("fruit_day", "Porsi buah per hari", "Numerik"),
@@ -791,13 +791,12 @@ elif page == "Step 2: Preprocessing":
             ("comfort_food_reasons_coded", "Alasan makan comfort food", "Encoded"),
             ("eating_changes_coded", "Perubahan kebiasaan makan", "Encoded"),
             ("healthy_feeling", "Perasaan sehat (proxy mood)", "Numerik 1-5"),
-            ("cook", "Frekuensi masak sendiri", "Numerik"),
+            ("cook", "Frekuensi masa sendiri", "Numerik"),
             ("sports", "Frekuensi aktivitas olahraga", "Numerik"),
             ("coffee", "Konsumsi kopi per hari", "Numerik"),
             ("breakfast", "Frekuensi sarapan", "Numerik"),
             ("on_off_campus", "Status tempat tinggal", "Encoded"),
             ("employment", "Status pekerjaan", "Encoded"),
-            ("gender", "Jenis kelamin", "Encoded"),
             ("pay_meal_out", "Budget makan di luar", "Encoded"),
             ("fav_cuisine_coded", "Masakan favorit", "Encoded"),
             ("healthy_behavior_score", "Skor perilaku sehat (composite)", "Engineered"),
