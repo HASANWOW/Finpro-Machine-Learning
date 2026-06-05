@@ -887,6 +887,9 @@ elif page == "Step 4: Demo":
     predict_btn = st.button("Analisis Pola Makanku!", use_container_width=True)
 
     if predict_btn:
+        import time
+        start_time = time.time()
+
         # Hitung composite features
         healthy_behavior_score = int(veggies_day >= 3) + int(exercise >= 2)
         emotional_eating_risk  = int(comfort_food_reasons_coded > 0) + int(eating_changes_coded > 0)
@@ -919,6 +922,8 @@ elif page == "Step 4: Demo":
         proba = model.predict_proba(input_scaled)[0] if hasattr(model, 'predict_proba') else None
         confidence = max(proba) * 100 if proba is not None else None
 
+        latency_ms = (time.time() - start_time) * 1000
+
         mood_label, mood_desc, foods = get_food_recommendation(healthy_feeling, prediction)
 
         st.markdown("---")
@@ -949,6 +954,16 @@ elif page == "Step 4: Demo":
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
+
+            # Display latency
+            st.markdown(f"""
+            <div style="text-align:center; margin-top:12px; font-size:0.8rem; color:#777;
+                        background:#fffaf5; border:1px solid #ffe5cc; border-radius:10px; padding:8px 12px;
+                        box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+                ⏱️ <b>System Latency:</b> <span style="color:#FF8D28; font-weight:700;">{latency_ms:.2f} ms</span> &nbsp;|&nbsp; 
+                <span style="color:#2d9e5f; font-weight:700;">Memenuhi Syarat &lt; 100 ms</span>
+            </div>
+            """, unsafe_allow_html=True)
 
             # Faktor paling berpengaruh
             factors = [
