@@ -827,8 +827,6 @@ elif page == "Step 2: Preprocessing":
             ]
 
             df_before = df_raw_prep[features_before].copy()
-            for col in df_before.columns:
-                df_before[col] = df_before[col].fillna(df_before[col].mode()[0] if not df_before[col].mode().empty else 0)
 
             # 2. Sesudah Augmentasi (Augmented Training Data)
             import numpy as np
