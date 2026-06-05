@@ -923,7 +923,7 @@ elif page == "Step 2: Preprocessing":
             with tab_prep_data:
                 mc1, mc2, mc3, mc4 = st.columns(4)
                 mc1.metric("Jumlah Baris", len(df_after))
-                mc2.metric("Jumlah Fitur", df_after.shape[1])
+                mc2.metric("Jumlah Fitur", df_after.shape[1] - 1)
                 mc3.metric("Nilai Kosong", df_after.isnull().sum().sum())
                 mc4.metric("Duplikat", df_after.duplicated().sum())
                 
