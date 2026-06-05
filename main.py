@@ -533,9 +533,9 @@ elif page == "Step 1: EDA":
 
         # Membuat Tabs
         tab_dist, tab_corr, tab_importance = st.tabs([
-            "📊 Hubungan & Distribusi Data", 
-            "🌡️ Matriks Korelasi (Heatmap)", 
-            "🔑 Fitur Paling Berpengaruh (Drivers)"
+            "Hubungan & Distribusi Data", 
+            "Matriks Korelasi (Heatmap)", 
+            "Fitur Paling Berpengaruh (Drivers)"
         ])
 
         try:
@@ -722,9 +722,9 @@ elif page == "Step 2: Preprocessing":
         col1, col2 = st.columns(2)
 
         steps_left = [
-            ("1. Data Cleaning", "Missing values pada kolom kategorikal diisi dengan imputasi modus. Kolom tidak relevan dari 61 kolom disaring menjadi 16 fitur utama."),
+            ("1. Data Cleaning", "Missing values pada kolom kategorikal diisi dengan imputasi modus. Kolom tidak relevan dari 61 kolom disaring menjadi 18 fitur utama."),
             ("2. Label Encoding", "Variabel kategorikal (on_off_campus, employment, fav_cuisine_coded) dikonversi ke numerik menggunakan LabelEncoder. Gender dibuang karena ketidakcocokan nama kolom di dataset."),
-            ("3. Feature Selection", "16 fitur dipilih berdasarkan relevansi terhadap lifestyle & emotional triggers — fokus pada variabel yang berkorelasi dengan diet_current_coded."),
+            ("3. Feature Selection", "18 fitur dipilih berdasarkan relevansi terhadap lifestyle & emotional triggers — fokus pada variabel yang berkorelasi dengan diet_current_coded."),
             ("4. Composite Features", "2 fitur baru dibuat: healthy_behavior_score (veggies ≥ 3 + exercise ≥ 2) dan emotional_eating_risk (comfort food reasons + eating changes)."),
         ]
         steps_right = [
