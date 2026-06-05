@@ -451,9 +451,9 @@ elif page == "Step 1: EDA":
         section("Ringkasan Dataset")
         c1, c2, c3, c4 = st.columns(4)
         metrics = [
-            (c1, "126", "responden", "Jumlah Sampel"),
+            (c1, "125", "responden", "Jumlah Sampel"),
             (c2, "61", "kolom", "Total Fitur"),
-            (c3, "17", "fitur", "Fitur yang Digunakan"),
+            (c3, "18", "fitur", "Fitur yang Digunakan"),
             (c4, "2", "kelas", "Target (Healthy/Unhealthy)"),
         ]
         for col, num, unit, label in metrics:
@@ -475,19 +475,18 @@ elif page == "Step 1: EDA":
             <div class="section-desc">
                 Variabel target <b>diet_current_coded</b> di-binarize menjadi:
                 <ul>
-                    <li><b>Healthy (1)</b>: Kode 1–2 (healthy / very healthy)</li>
-                    <li><b>Unhealthy (0)</b>: Kode 3–5 (unhealthy / very unhealthy)</li>
+                    <li><b>Relatively Healthy (1)</b>: Kode 1–2 (110 responden / 88%)</li>
+                    <li><b>Unhealthy (0)</b>: Kode 3–4 (15 responden / 12%)</li>
                 </ul>
-                Distribusi relatif seimbang (~52% unhealthy, ~48% healthy) — menunjukkan
-                dataset cukup representatif untuk klasifikasi binary.
+                Distribusi awal sangat <b>imbalanced</b> (tidak seimbang), sehingga pada tahap preprocessing dilakukan <b>Synthetic Data Augmentation (SMOTE)</b> untuk menyeimbangkan dataset.
             </div>
             """, unsafe_allow_html=True)
 
             # Visual bar distribusi
-            dist_data = {"Unhealthy": 65, "Healthy": 61}
+            dist_data = {"Unhealthy": 15, "Relatively Healthy": 110}
             for label, count in dist_data.items():
-                color = "#FF8D28" if label == "Unhealthy" else "#2d9e5f"
-                pct = count / 126 * 100
+                color = "#e74c3c" if label == "Unhealthy" else "#2d9e5f"
+                pct = count / 125 * 100
                 st.markdown(f"""
                 <div style="margin-bottom:12px;">
                     <div style="display:flex;justify-content:space-between;font-size:0.85rem;
@@ -509,7 +508,7 @@ elif page == "Step 1: EDA":
                 ("healthy_feeling", "Perasaan sehat diri", "Proxy mood & self-awareness"),
                 ("comfort_food_reasons_coded", "Alasan makan comfort food", "Emotional eating indicator"),
                 ("eating_out", "Frekuensi makan di luar", "Risk factor untuk unhealthy"),
-                ("cook", "Frekuensi masak sendiri", "Berkorelasi dengan pola makan sehat"),
+                ("cook", "Frekuensi masa sendiri", "Berkorelasi dengan pola makan sehat"),
             ]
             for feat, label, note in features_info:
                 st.markdown(f"""
@@ -522,6 +521,73 @@ elif page == "Step 1: EDA":
                 </div>
                 """, unsafe_allow_html=True)
 
+        # Visualisasi Distribusi & Pola Korelasi (dari Notebook)
+        st.markdown("<br>", unsafe_allow_html=True)
+        section("Visualisasi Distribusi & Pola Korelasi (dari Notebook)")
+
+        try:
+            import matplotlib.pyplot as plt
+            import seaborn as sns
+
+            # Load dataset
+            csv_path = "Dataset/Food Vibe/food_coded.csv"
+            if not os.path.exists(csv_path):
+                csv_path = "d:/BINUS/Semester 4/Machine Learning/Project/Final Project/Dataset/Food Vibe/food_coded.csv"
+            df_raw = pd.read_csv(csv_path)
+
+            # Binarize
+            df_plot = df_raw.copy()
+            df_plot['diet_binary'] = (df_plot['diet_current_coded'] <= 2).astype(int)
+
+            # Fillna
+            plot_cols = ['diet_binary', 'fruit_day', 'veggies_day', 'healthy_feeling', 'exercise']
+            for col in plot_cols:
+                if col in df_plot.columns and df_plot[col].isnull().sum() > 0:
+                    df_plot[col] = df_plot[col].fillna(df_plot[col].mode()[0])
+
+            # Subplots
+            sns.set_theme(style='whitegrid')
+            fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+            # Color palette
+            colors_dict = {0: '#e74c3c', 1: '#2d9e5f'} # Unhealthy vs Healthy
+
+            # 1. Target Distribution
+            sns.countplot(x='diet_binary', data=df_plot, ax=axes[0, 0], palette=['#e74c3c', '#2d9e5f'])
+            axes[0, 0].set_title('Distribution of Target (diet_binary)', fontsize=11, fontweight='bold', color='#1d2b22')
+            axes[0, 0].set_xticklabels(['Unhealthy (0)', 'Relatively Healthy (1)'])
+            axes[0, 0].set_xlabel('diet_binary')
+            axes[0, 0].set_ylabel('count')
+
+            # 2. Fruit vs Veggies scatter
+            sns.scatterplot(x='fruit_day', y='veggies_day', hue='diet_binary', data=df_plot, ax=axes[0, 1], alpha=0.7, palette=colors_dict)
+            axes[0, 1].set_title('Fruit vs Veggie Consumption', fontsize=11, fontweight='bold', color='#1d2b22')
+            axes[0, 1].set_xlabel('fruit_day')
+            axes[0, 1].set_ylabel('veggies_day')
+            # Custom legend
+            handles, labels = axes[0, 1].get_legend_handles_labels()
+            axes[0, 1].legend(handles, ['Unhealthy (0)', 'Relatively Healthy (1)'], title='diet_binary')
+
+            # 3. Healthy Feeling Distribution
+            sns.boxplot(x='diet_binary', y='healthy_feeling', data=df_plot, ax=axes[1, 0], palette=['#e74c3c', '#2d9e5f'])
+            axes[1, 0].set_title('Healthy Feeling by Class', fontsize=11, fontweight='bold', color='#1d2b22')
+            axes[1, 0].set_xticklabels(['Unhealthy (0)', 'Relatively Healthy (1)'])
+            axes[1, 0].set_xlabel('diet_binary')
+            axes[1, 0].set_ylabel('healthy_feeling')
+
+            # 4. Exercise Frequency
+            sns.violinplot(x='diet_binary', y='exercise', data=df_plot, ax=axes[1, 1], palette=['#e74c3c', '#2d9e5f'])
+            axes[1, 1].set_title('Exercise Frequency by Class', fontsize=11, fontweight='bold', color='#1d2b22')
+            axes[1, 1].set_xticklabels(['Unhealthy (0)', 'Relatively Healthy (1)'])
+            axes[1, 1].set_xlabel('diet_binary')
+            axes[1, 1].set_ylabel('exercise')
+
+            plt.tight_layout()
+            st.pyplot(fig)
+        except Exception as e:
+            st.error(f"Gagal memuat visualisasi: {e}")
+
+        st.markdown("<br>", unsafe_allow_html=True)
         section("EDA Insights")
         i1, i2, i3 = st.columns(3)
         insights = [
