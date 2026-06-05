@@ -459,7 +459,8 @@ if page == "Home":
     section("Tim Project")
     st.markdown("""
     <div class="info-card" style="background: linear-gradient(135deg, #ffffff 0%, #fffaf5 100%);">
-        <b style="color:#FF8D28; font-size:1rem; display:block; margin-bottom:10px;">Kelompok 6 – Universitas Bina Nusantara 2025/2026</b>
+        <b style="color:#FF8D28; font-size:1rem; display:block; margin-bottom:2px;">Kelompok 6 – Universitas Bina Nusantara 2025/2026</b>
+        <div style="color:#FF8D28; font-size:0.82rem; font-weight:normal; display:block; margin-bottom:12px;">Dosen: Johannes Simatupang, S.Kom., M.Kom</div>
         <table style="width:100%; font-size:0.85rem; color:#444; border-collapse:collapse;">
             <tr style="border-bottom:1px solid #ffe5cc;">
                 <td style="padding:8px 0; font-weight:600;">Hasan</td>
