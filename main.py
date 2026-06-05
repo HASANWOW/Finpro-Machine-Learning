@@ -456,6 +456,53 @@ if page == "Home":
             </div>
             """, unsafe_allow_html=True)
 
+    section("Dokumentasi")
+    dc1, dc2, dc3 = st.columns(3)
+    with dc1:
+        st.markdown("""
+        <div class="info-card" style="min-height: 160px; border-left: 4px solid #FF8D28; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h4 style="color:#FF8D28; margin: 0 0 6px 0;">Google Drive Folder</h4>
+                <div style="font-size:0.83rem;color:#555;margin-bottom:12px;line-height:1.45;">
+                    Penyimpanan dokumen project, file presentasi, dan berkas pendukung kelompok.
+                </div>
+            </div>
+            <div>
+                <a href="https://drive.google.com/drive/folders/1LGGGSB68G1AsdnN5rW4lhl1YGMUx8hNJ?usp=drive_link" target="_blank" style="display:inline-block; background:linear-gradient(135deg, #FF8D28, #ffaa5c); color:white !important; text-decoration:none; padding:6px 14px; border-radius:8px; font-size:0.8rem; font-weight:700; box-shadow:0 2px 8px rgba(255,141,40,0.25);">Buka Drive</a>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    with dc2:
+        st.markdown("""
+        <div class="info-card" style="min-height: 160px; border-left: 4px solid #3498db; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h4 style="color:#3498db; margin: 0 0 6px 0;">User Testing (Wawancara)</h4>
+                <div style="font-size:0.83rem;color:#555;margin-bottom:12px;line-height:1.45;">
+                    Dokumentasi rekaman wawancara dan hasil uji coba langsung dengan 5 user (mahasiswa).
+                </div>
+            </div>
+            <div>
+                <a href="https://drive.google.com/drive/folders/1TDvn4NanOPen9qns3MC_FkpN4GctXN0S?usp=drive_link" target="_blank" style="display:inline-block; background:linear-gradient(135deg, #3498db, #5dade2); color:white !important; text-decoration:none; padding:6px 14px; border-radius:8px; font-size:0.8rem; font-weight:700; box-shadow:0 2px 8px rgba(52,152,219,0.25);">Buka Wawancara</a>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    with dc3:
+        st.markdown("""
+        <div class="info-card" style="min-height: 160px; border-left: 4px solid #2d9e5f; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h4 style="color:#2d9e5f; margin: 0 0 6px 0;">Survey G-Forms</h4>
+                <div style="font-size:0.83rem;color:#555;margin-bottom:12px;line-height:1.45;">
+                    Dataset respon kuesioner Google Form mengenai perilaku makan dan gaya hidup mahasiswa.
+                </div>
+            </div>
+            <div>
+                <a href="https://docs.google.com/spreadsheets/d/1k7syholG6I8gTebP4FaxUd7asPQVg70DLoAR5ZcHPpA/edit?usp=sharing" target="_blank" style="display:inline-block; background:linear-gradient(135deg, #2d9e5f, #58d68d); color:white !important; text-decoration:none; padding:6px 14px; border-radius:8px; font-size:0.8rem; font-weight:700; box-shadow:0 2px 8px rgba(45,158,95,0.25);">Buka Google Sheets</a>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
     section("Tim Project")
     st.markdown("""
     <div class="info-card" style="background: linear-gradient(135deg, #ffffff 0%, #fffaf5 100%);">
