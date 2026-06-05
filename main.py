@@ -1261,7 +1261,7 @@ elif page == "Step 4: Demo":
     with col1:
         st.markdown("**Mood (Kondisi Emosional)**")
         healthy_feeling_emoji = st.select_slider(
-            "Suasana Hati / Mood Harian",
+            "Suasana Hati / Mood Hari ini",
             options=["😔", "😟", "😐", "😊", "😁"],
             value="😐",
             help="Geser untuk memilih mood Anda dari 😔 (sangat buruk/stres) hingga 😁 (sangat baik/sehat)"
